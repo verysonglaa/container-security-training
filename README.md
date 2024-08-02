@@ -6,6 +6,7 @@ The training content resides within the [content](content) directory.
 
 The main part are the labs, which can be found at [content/en/docs](content/en/docs).
 
+
 ## Hugo
 
 This site is built using the static page generator [Hugo](https://gohugo.io/).
