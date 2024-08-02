@@ -48,23 +48,3 @@ Use the following command to set the hugo environment
 export HUGO_VERSION=$(grep "FROM floryn90/hugo" Dockerfile | sed 's/FROM floryn90\/hugo://g' | sed 's/ AS builder//g')
 docker run --rm --publish 8080:8080 --volume $(pwd):/src floryn90/hugo:${HUGO_VERSION} server --port 8080 --environment=<environment>
 ```
-
-
-## Linting of Markdown content
-
-Markdown files are linted with <https://github.com/DavidAnson/markdownlint>.
-Custom rules are in `.markdownlint.json`.
-There's a GitHub Action `.github/workflows/markdownlint.yaml` for CI.
-For local checks, you can either use Visual Studio Code with the corresponding extension, or the command line like this:
-
-```shell script
-npm install
-npm run mdlint
-```
-
-Npm not installed? no problem
-
-```bash
-export HUGO_VERSION=$(grep "FROM floryn90/hugo" Dockerfile | sed 's/FROM floryn90\/hugo://g' | sed 's/ AS builder//g')
-docker run --rm -v $(pwd):/src floryn90/hugo:${HUGO_VERSION}-ci /bin/bash -c "npm install && npm run mdlint"
-```
