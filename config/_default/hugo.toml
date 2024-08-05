@@ -1,6 +1,6 @@
 baseurl = "/"
 title = "Kubernetes Security Training"
-# relativeURLs=true
+relativeURLs=true
 
 enableGitInfo = true
 
