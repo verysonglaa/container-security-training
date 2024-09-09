@@ -1,0 +1,319 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><link rel="shortcut icon" href=../../../../../favicons/favicon.ico><link rel=apple-touch-icon href=../../../../../favicons/apple-touch-icon-180x180.png sizes=180x180><link rel=icon type=image/png href=../../../../../favicons/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=../../../../../favicons/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=../../../../../favicons/android-36x36.png sizes=36x36><link rel=icon type=image/png href=../../../../../favicons/android-48x48.png sizes=48x48><link rel=icon type=image/png href=../../../../../favicons/android-72x72.png sizes=72x72><link rel=icon type=image/png href=../../../../../favicons/android-96x96.png sizes=96x96><link rel=icon type=image/png href=../../../../../favicons/android-144x144.png sizes=144x144><link rel=icon type=image/png href=../../../../../favicons/android-192x192.png sizes=192x192><title>1.3 Dockerfile | Kubernetes Security Training</title>
+<meta name=description content="Dockerfile Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile. The basic docs on how Dockerfiles work can be found at https://docs.docker.com/engine/reference/builder/ .
+Write your first Dockerfile Before we extend our php image we are going to have a more general look at how to build a container image. For that, create a new directory with an empty Dockerfile in there."><meta property="og:title" content="1.3 Dockerfile"><meta property="og:description" content="Dockerfile Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile. The basic docs on how Dockerfiles work can be found at https://docs.docker.com/engine/reference/builder/ .
+Write your first Dockerfile Before we extend our php image we are going to have a more general look at how to build a container image. For that, create a new directory with an empty Dockerfile in there."><meta property="og:type" content="article"><meta property="og:url" content="/docs/container-basics/01-basics/01/_dockerfile/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2024-09-09T14:19:32+02:00"><meta itemprop=name content="1.3 Dockerfile"><meta itemprop=description content="Dockerfile Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile. The basic docs on how Dockerfiles work can be found at https://docs.docker.com/engine/reference/builder/ .
+Write your first Dockerfile Before we extend our php image we are going to have a more general look at how to build a container image. For that, create a new directory with an empty Dockerfile in there."><meta itemprop=dateModified content="2024-09-09T14:19:32+02:00"><meta itemprop=wordCount content="1197"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="1.3 Dockerfile"><meta name=twitter:description content="Dockerfile Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile. The basic docs on how Dockerfiles work can be found at https://docs.docker.com/engine/reference/builder/ .
+Write your first Dockerfile Before we extend our php image we are going to have a more general look at how to build a container image. For that, create a new directory with an empty Dockerfile in there."><link rel=preload href=../../../../../scss/main.min.5118d334f4d49e78b43432d75232dda13144ff70fc9d784048f9c31c8751ea0f.css as=style><link href=../../../../../scss/main.min.5118d334f4d49e78b43432d75232dda13144ff70fc9d784048f9c31c8751ea0f.css rel=stylesheet integrity><script src=https://code.jquery.com/jquery-3.7.1.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous></script><script defer src=https://unpkg.com/lunr@2.3.9/lunr.min.js integrity=sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli crossorigin=anonymous></script></head><body class=td-page><header><nav class="td-navbar js-navbar-scroll" data-bs-theme=dark><div class="container-fluid flex-column flex-md-row"><a class=navbar-brand href=../../../../../><span class="navbar-brand__logo navbar-logo"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+<g>
+	<path style="fill:#FFFFFF;" d="M116.8525,421.9722c-5.7041,0-10.3442-4.3127-10.3442-9.6129V88.183
+		c0-5.3002,4.6401-9.6117,10.3442-9.6117H320.858c3.0347,0,9.3959,0.5498,11.7506,2.6302l0.3545,0.3442l58.905,63.2912
+		c2.3101,2.491,2.9202,8.4928,2.9202,11.3184v256.2039c0,5.3002-4.6407,9.6129-10.3436,9.6129H116.8525z"/>
+	<g>
+		<g>
+			<g>
+				<path style="fill:#767676;" d="M384.4445,423.2066H116.852c-6.3839,0-11.5786-4.8658-11.5786-10.8474V88.1831
+					c0-5.9804,5.1947-10.8461,11.5786-10.8461h204.0062c0.377,0,9.2786,0.0329,12.568,2.9389l0.3947,0.3833l58.9508,63.337
+					c3.2135,3.4652,3.2514,11.7924,3.2514,12.1593v256.2036C396.0231,418.3408,390.8284,423.2066,384.4445,423.2066z
+					 M116.5079,411.9189c0.0848,0.0278,0.1999,0.0531,0.3441,0.0531h267.5925c0.1442,0,0.2581-0.0253,0.3441-0.0531V156.1556
+					c-0.0076-0.9033-0.3593-3.7347-0.7034-5.0037l-57.6527-61.9416c-1.4651-0.3176-4.4533-0.6389-5.5742-0.6389H116.852
+					c-0.143,0-0.2594,0.024-0.3441,0.0531V411.9189z M383.9612,150.7699L383.9612,150.7699L383.9612,150.7699z M327.0321,89.371
+					v0.0013V89.371z"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path style="fill:#5B7FC0;" d="M189.0874,210.1754l0.0012-0.0012c7.7751,0.0012,15.0295,4.1862,18.932,10.9234
+				c1.9177,3.3159,2.9305,7.1011,2.9293,10.9378c0,5.8394-2.2733,11.3304-6.4032,15.4604
+				c-4.1288,4.1288-9.6186,6.4032-15.458,6.4032c-5.8394,0-11.328-2.2733-15.458-6.4032s-6.4032-9.6186-6.4056-15.4628
+				c0.0012-6.025,2.454-11.4897,6.4116-15.4473C177.5953,212.627,183.0601,210.1742,189.0874,210.1754z M197.0804,232.033
+				c0.0012-1.4042-0.3687-2.7868-1.063-3.9887c-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019c-4.4077,0.0024-7.993,3.5877-7.993,7.993
+				c0,2.1356,0.832,4.1431,2.3427,5.6539c1.5083,1.5083,3.5159,2.3403,5.6503,2.3415c2.1356,0,4.1443-0.8308,5.6539-2.3403
+				S197.0816,234.1722,197.0804,232.033z"/>
+			<path style="opacity:0.3;fill:#FFFFFF;" d="M189.0898,210.176c7.7763,0,15.0283,4.1826,18.926,10.9151
+				c1.9201,3.3136,2.9377,7.0988,2.9353,10.9462c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613
+				c-12.0547,0.0024-21.8636-9.8066-21.8612-21.8613c0-6.0285,2.4516-11.4921,6.4116-15.452
+				C177.5977,212.6276,183.0612,210.176,189.0898,210.176z M197.0839,232.0372c0-1.4078-0.3711-2.7892-1.0702-3.9959
+				c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+				c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+				C196.1861,236.239,197.0839,234.2399,197.0839,232.0372z"/>
+			<g>
+				<defs>
+					<path id="SVGID_1_" d="M194.7376,237.6875c-1.4461,1.4461-3.4452,2.3439-5.6479,2.3439
+						c-4.4077-0.0024-7.9918-3.5865-7.9942-7.9942c0.0024-4.4125,3.5937-7.999,7.9942-7.9942c2.8443,0,5.497,1.5323,6.924,3.9983
+						c0.6991,1.2067,1.0702,2.5881,1.0702,3.9959C197.0839,234.2399,196.1861,236.239,194.7376,237.6875z"/>
+				</defs>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_2_);fill:#FFFFFF;" d="M190.0704,225.0237c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+					c0.0011,1.9546,0.7088,3.7452,1.8782,5.1354c-1.7447-1.4674-2.8575-3.663-2.8588-6.116
+					c0.0024-4.4125,3.5936-7.999,7.9942-7.9942c2.3802-0.0001,4.616,1.0833,6.1218,2.8788
+					C193.7885,225.7247,191.9774,225.0237,190.0704,225.0237z"/>
+				<path style="opacity:0.13;clip-path:url(#SVGID_2_);fill:#020202;" d="M190.0704,225.0237
+					c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942c0.0011,1.9546,0.7088,3.7452,1.8782,5.1354
+					c-1.7447-1.4674-2.8575-3.663-2.8588-6.116c0.0024-4.4125,3.5936-7.999,7.9942-7.9942c2.3802-0.0001,4.616,1.0833,6.1218,2.8788
+					C193.7885,225.7247,191.9774,225.0237,190.0704,225.0237z"/>
+			</g>
+			<g>
+				<defs>
+					<path id="SVGID_3_" d="M189.0898,210.176c7.7763,0,15.0283,4.1826,18.926,10.9151c1.9201,3.3136,2.9377,7.0988,2.9353,10.9462
+						c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613c-12.0547,0.0024-21.8636-9.8066-21.8612-21.8613
+						c0-6.0285,2.4516-11.4921,6.4116-15.452C177.5977,212.6276,183.0612,210.176,189.0898,210.176z M197.0839,232.0372
+						c0-1.4078-0.3711-2.7892-1.0702-3.9959c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+						c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+						C196.1861,236.239,197.0839,234.2399,197.0839,232.0372z"/>
+				</defs>
+				<clipPath id="SVGID_4_">
+					<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_4_);fill:#5B7FC0;" d="M172.6595,215.6045c-3.96,3.96-6.4116,9.4235-6.4116,15.452
+					c-0.0024,12.0547,9.8066,21.8636,21.8613,21.8612c12.0547,0.0024,21.8636-9.797,21.8613-21.8612
+					c0.0024-3.8475-1.0151-7.6326-2.9353-10.9462c-3.8977-6.7324-11.1497-10.9151-18.926-10.9151
+					C182.0806,209.1953,176.6171,211.647,172.6595,215.6045z"/>
+			</g>
+		</g>
+		<rect x="198.8952" y="225.1043" style="fill:#5B7FC0;" width="122.6266" height="13.8671"/>
+	</g>
+	<g>
+		<path style="fill:#D95140;" d="M189.0874,155.7611l0.0012-0.0012c7.7751,0.0012,15.0295,4.1862,18.932,10.9234
+			c1.9177,3.3159,2.9305,7.1011,2.9293,10.9378c0,5.8394-2.2733,11.3304-6.4032,15.4604c-4.1288,4.1288-9.6186,6.4032-15.458,6.4032
+			c-5.8394,0-11.328-2.2733-15.458-6.4032s-6.4032-9.6186-6.4056-15.4628c0.0012-6.0249,2.454-11.4897,6.4116-15.4473
+			C177.5953,158.2128,183.0601,155.7599,189.0874,155.7611z M197.0804,177.6188c0.0012-1.4042-0.3687-2.7868-1.063-3.9887
+			c-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019c-4.4077,0.0024-7.993,3.5877-7.993,7.993c0,2.1356,0.832,4.1431,2.3427,5.6539
+			c1.5083,1.5083,3.5159,2.3403,5.6503,2.3415c2.1356,0,4.1443-0.8308,5.6539-2.3403
+			C196.2508,181.7667,197.0816,179.758,197.0804,177.6188z"/>
+		<path style="opacity:0.3;fill:#FFFFFF;" d="M189.0898,155.7617c7.7763,0,15.0283,4.1826,18.926,10.9151
+			c1.9201,3.3135,2.9377,7.0987,2.9353,10.9462c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613
+			c-12.0547,0.0024-21.8636-9.8066-21.8612-21.8613c0-6.0285,2.4516-11.4921,6.4116-15.452
+			C177.5977,158.2134,183.0612,155.7617,189.0898,155.7617z M197.0839,177.623c0-1.4078-0.3711-2.7892-1.0702-3.9959
+			c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+			c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+			C196.1861,181.8248,197.0839,179.8256,197.0839,177.623z"/>
+		<g>
+			<defs>
+				<path id="SVGID_5_" d="M194.7376,183.2733c-1.4461,1.4461-3.4452,2.3439-5.6479,2.3439
+					c-4.4077-0.0024-7.9918-3.5865-7.9942-7.9942c0.0024-4.4125,3.5937-7.9989,7.9942-7.9942c2.8443,0,5.497,1.5323,6.924,3.9983
+					c0.6991,1.2067,1.0702,2.5881,1.0702,3.9959C197.0839,179.8256,196.1861,181.8248,194.7376,183.2733z"/>
+			</defs>
+			<clipPath id="SVGID_6_">
+				<use xlink:href="#SVGID_5_"  style="overflow:visible;"/>
+			</clipPath>
+			<path style="clip-path:url(#SVGID_6_);fill:#FFFFFF;" d="M190.0704,170.6095c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+				c0.0011,1.9546,0.7088,3.7452,1.8782,5.1354c-1.7447-1.4674-2.8575-3.663-2.8588-6.116c0.0024-4.4125,3.5936-7.999,7.9942-7.9942
+				c2.3802-0.0001,4.616,1.0833,6.1218,2.8788C193.7885,171.3104,191.9774,170.6095,190.0704,170.6095z"/>
+			<path style="opacity:0.13;clip-path:url(#SVGID_6_);fill:#020202;" d="M190.0704,170.6095
+				c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942c0.0011,1.9546,0.7088,3.7452,1.8782,5.1354
+				c-1.7447-1.4674-2.8575-3.663-2.8588-6.116c0.0024-4.4125,3.5936-7.999,7.9942-7.9942c2.3802-0.0001,4.616,1.0833,6.1218,2.8788
+				C193.7885,171.3104,191.9774,170.6095,190.0704,170.6095z"/>
+		</g>
+		<g>
+			<defs>
+				<path id="SVGID_7_" d="M189.0898,155.7617c7.7763,0,15.0283,4.1826,18.926,10.9151c1.9201,3.3135,2.9377,7.0987,2.9353,10.9462
+					c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613c-12.0547,0.0024-21.8636-9.8066-21.8612-21.8613
+					c0-6.0285,2.4516-11.4921,6.4116-15.452C177.5977,158.2134,183.0612,155.7617,189.0898,155.7617z M197.0839,177.623
+					c0-1.4078-0.3711-2.7892-1.0702-3.9959c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+					c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+					C196.1861,181.8248,197.0839,179.8256,197.0839,177.623z"/>
+			</defs>
+			<clipPath id="SVGID_8_">
+				<use xlink:href="#SVGID_7_"  style="overflow:visible;"/>
+			</clipPath>
+			<path style="clip-path:url(#SVGID_8_);fill:#D95140;" d="M172.6595,161.1903c-3.96,3.96-6.4116,9.4235-6.4116,15.452
+				c-0.0024,12.0547,9.8066,21.8636,21.8613,21.8613c12.0547,0.0024,21.8636-9.797,21.8613-21.8613
+				c0.0024-3.8474-1.0151-7.6326-2.9353-10.9462c-3.8977-6.7324-11.1497-10.9151-18.926-10.9151
+				C182.0806,154.7811,176.6171,157.2327,172.6595,161.1903z"/>
+		</g>
+		<rect x="198.8952" y="170.69" style="fill:#D95140;" width="122.6266" height="13.8671"/>
+	</g>
+	<g>
+		<g>
+			<path style="fill:#56A55C;" d="M189.5379,264.6147l0.0012-0.0012c7.7751,0.0012,15.0294,4.1862,18.932,10.9235
+				c1.9177,3.3159,2.9305,7.1011,2.9293,10.9378c0,5.8394-2.2733,11.3304-6.4032,15.4604
+				c-4.1288,4.1288-9.6186,6.4032-15.458,6.4032c-5.8394,0-11.3281-2.2733-15.458-6.4032c-4.13-4.13-6.4032-9.6186-6.4056-15.4628
+				c0.0012-6.0249,2.454-11.4897,6.4116-15.4472C178.0458,267.0663,183.5105,264.6135,189.5379,264.6147z M197.5309,286.4723
+				c0.0012-1.4042-0.3687-2.7868-1.063-3.9887c-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019c-4.4077,0.0024-7.993,3.5877-7.993,7.993
+				c0,2.1356,0.832,4.1431,2.3427,5.6538c1.5083,1.5083,3.5159,2.3403,5.6503,2.3415c2.1356,0,4.1443-0.8308,5.6539-2.3403
+				C196.7013,290.6202,197.5321,288.6115,197.5309,286.4723z"/>
+			<path style="opacity:0.3;fill:#FFFFFF;" d="M189.5403,264.6153c7.7763,0,15.0283,4.1826,18.926,10.9151
+				c1.9201,3.3135,2.9377,7.0987,2.9353,10.9462c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613
+				c-12.0547,0.0024-21.8636-9.8065-21.8612-21.8613c0-6.0285,2.4516-11.492,6.4116-15.452
+				C178.0482,267.0669,183.5117,264.6153,189.5403,264.6153z M197.5344,286.4765c0-1.4078-0.3711-2.7892-1.0702-3.9959
+				c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9941
+				c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+				C196.6366,290.6783,197.5344,288.6792,197.5344,286.4765z"/>
+			<g>
+				<defs>
+					<path id="SVGID_9_" d="M195.1881,292.1268c-1.4461,1.4461-3.4452,2.3439-5.6479,2.3439
+						c-4.4077-0.0024-7.9918-3.5865-7.9942-7.9942c0.0024-4.4125,3.5937-7.9989,7.9942-7.9941c2.8443,0,5.497,1.5323,6.924,3.9983
+						c0.6991,1.2067,1.0702,2.5881,1.0702,3.9959C197.5344,288.6792,196.6366,290.6783,195.1881,292.1268z"/>
+				</defs>
+				<clipPath id="SVGID_10_">
+					<use xlink:href="#SVGID_9_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_10_);fill:#FFFFFF;" d="M190.5209,279.463c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9941
+					c0.0011,1.9547,0.7088,3.7452,1.8782,5.1354c-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161
+					c0.0024-4.4125,3.5936-7.999,7.9942-7.9941c2.3802-0.0001,4.616,1.0833,6.1218,2.8788
+					C194.239,280.164,192.4279,279.463,190.5209,279.463z"/>
+				<path style="opacity:0.13;clip-path:url(#SVGID_10_);fill:#020202;" d="M190.5209,279.463
+					c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9941c0.0011,1.9547,0.7088,3.7452,1.8782,5.1354
+					c-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161c0.0024-4.4125,3.5936-7.999,7.9942-7.9941
+					c2.3802-0.0001,4.616,1.0833,6.1218,2.8788C194.239,280.164,192.4279,279.463,190.5209,279.463z"/>
+			</g>
+			<g>
+				<defs>
+					<path id="SVGID_11_" d="M189.5403,264.6153c7.7763,0,15.0283,4.1826,18.926,10.9151
+						c1.9201,3.3135,2.9377,7.0987,2.9353,10.9462c0.0024,12.0643-9.8065,21.8636-21.8613,21.8613
+						c-12.0547,0.0024-21.8636-9.8065-21.8612-21.8613c0-6.0285,2.4516-11.492,6.4116-15.452
+						C178.0482,267.0669,183.5117,264.6153,189.5403,264.6153z M197.5344,286.4765c0-1.4078-0.3711-2.7892-1.0702-3.9959
+						c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9941
+						c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+						C196.6366,290.6783,197.5344,288.6792,197.5344,286.4765z"/>
+				</defs>
+				<clipPath id="SVGID_12_">
+					<use xlink:href="#SVGID_11_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_12_);fill:#56A55C;" d="M173.11,270.0439c-3.96,3.96-6.4116,9.4235-6.4116,15.452
+					c-0.0024,12.0547,9.8066,21.8636,21.8613,21.8613c12.0547,0.0024,21.8636-9.797,21.8613-21.8613
+					c0.0024-3.8474-1.0151-7.6326-2.9353-10.9462c-3.8977-6.7325-11.1497-10.9151-18.926-10.9151
+					C182.5311,263.6346,177.0676,266.0863,173.11,270.0439z"/>
+			</g>
+		</g>
+		<rect x="199.3456" y="279.5436" style="fill:#56A55C;" width="122.6266" height="13.8671"/>
+	</g>
+	<g>
+		<g>
+			<path style="fill:#F1BC42;" d="M189.0874,318.7208l0.0012-0.0012c7.7751,0.0012,15.0295,4.1862,18.932,10.9234
+				c1.9177,3.3159,2.9305,7.1011,2.9293,10.9378c0,5.8394-2.2733,11.3305-6.4032,15.4604
+				c-4.1288,4.1288-9.6186,6.4032-15.458,6.4032c-5.8394,0-11.328-2.2733-15.458-6.4032c-4.13-4.1299-6.4032-9.6186-6.4056-15.4628
+				c0.0012-6.025,2.454-11.4897,6.4116-15.4472C177.5953,321.1724,183.0601,318.7196,189.0874,318.7208z M197.0804,340.5784
+				c0.0012-1.4042-0.3687-2.7868-1.063-3.9887c-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019c-4.4077,0.0024-7.993,3.5877-7.993,7.993
+				c0,2.1356,0.832,4.1431,2.3427,5.6539c1.5083,1.5083,3.5159,2.3403,5.6503,2.3415c2.1356,0,4.1443-0.8308,5.6539-2.3403
+				S197.0816,342.7176,197.0804,340.5784z"/>
+			<path style="opacity:0.3;fill:#FFFFFF;" d="M189.0898,318.7214c7.7763,0,15.0283,4.1826,18.926,10.915
+				c1.9201,3.3136,2.9377,7.0988,2.9353,10.9462c0.0024,12.0643-9.8065,21.8636-21.8613,21.8612
+				c-12.0547,0.0024-21.8636-9.8065-21.8612-21.8612c0-6.0285,2.4516-11.4921,6.4116-15.452
+				C177.5977,321.173,183.0612,318.7214,189.0898,318.7214z M197.0839,340.5826c0-1.4078-0.3711-2.7892-1.0702-3.9959
+				c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+				c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+				C196.1861,344.7844,197.0839,342.7853,197.0839,340.5826z"/>
+			<g>
+				<defs>
+					<path id="SVGID_13_" d="M194.7376,346.2329c-1.4461,1.4461-3.4452,2.3439-5.6479,2.3439
+						c-4.4077-0.0024-7.9918-3.5865-7.9942-7.9942c0.0024-4.4125,3.5937-7.999,7.9942-7.9942c2.8443,0,5.497,1.5323,6.924,3.9983
+						c0.6991,1.2067,1.0702,2.5881,1.0702,3.9959C197.0839,342.7853,196.1861,344.7844,194.7376,346.2329z"/>
+				</defs>
+				<clipPath id="SVGID_14_">
+					<use xlink:href="#SVGID_13_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_14_);fill:#FFFFFF;" d="M190.0704,333.5691c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+					c0.0011,1.9547,0.7088,3.7452,1.8782,5.1354c-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161
+					c0.0024-4.4125,3.5936-7.999,7.9942-7.9942c2.3802-0.0001,4.616,1.0834,6.1218,2.8788
+					C193.7885,334.2701,191.9774,333.5691,190.0704,333.5691z"/>
+				<path style="opacity:0.13;clip-path:url(#SVGID_14_);fill:#020202;" d="M190.0704,333.5691
+					c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942c0.0011,1.9547,0.7088,3.7452,1.8782,5.1354
+					c-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161c0.0024-4.4125,3.5936-7.999,7.9942-7.9942
+					c2.3802-0.0001,4.616,1.0834,6.1218,2.8788C193.7885,334.2701,191.9774,333.5691,190.0704,333.5691z"/>
+			</g>
+			<g>
+				<defs>
+					<path id="SVGID_15_" d="M189.0898,318.7214c7.7763,0,15.0283,4.1826,18.926,10.915c1.9201,3.3136,2.9377,7.0988,2.9353,10.9462
+						c0.0024,12.0643-9.8065,21.8636-21.8613,21.8612c-12.0547,0.0024-21.8636-9.8065-21.8612-21.8612
+						c0-6.0285,2.4516-11.4921,6.4116-15.452C177.5977,321.173,183.0612,318.7214,189.0898,318.7214z M197.0839,340.5826
+						c0-1.4078-0.3711-2.7892-1.0702-3.9959c-1.4269-2.466-4.0797-3.9983-6.924-3.9983c-4.4005-0.0048-7.9918,3.5817-7.9942,7.9942
+						c0.0024,4.4077,3.5865,7.9918,7.9942,7.9942c2.2027,0,4.2018-0.8978,5.6479-2.3439
+						C196.1861,344.7844,197.0839,342.7853,197.0839,340.5826z"/>
+				</defs>
+				<clipPath id="SVGID_16_">
+					<use xlink:href="#SVGID_15_"  style="overflow:visible;"/>
+				</clipPath>
+				<path style="clip-path:url(#SVGID_16_);fill:#F1BC42;" d="M172.6595,324.15c-3.96,3.96-6.4116,9.4235-6.4116,15.452
+					c-0.0024,12.0547,9.8066,21.8636,21.8613,21.8612c12.0547,0.0024,21.8636-9.797,21.8613-21.8612
+					c0.0024-3.8474-1.0151-7.6327-2.9353-10.9462c-3.8977-6.7324-11.1497-10.9151-18.926-10.9151
+					C182.0806,317.7407,176.6171,320.1924,172.6595,324.15z"/>
+			</g>
+		</g>
+		<rect x="198.8952" y="333.6497" style="fill:#F1BC42;" width="122.6266" height="13.8671"/>
+	</g>
+</g>
+</svg>
+</span><span class=navbar-brand__name>Kubernetes Security Training</span></a><div class="td-navbar-nav-scroll ms-md-auto" id=main_navbar><ul class=navbar-nav><li class=nav-item><a class=nav-link href=../../../../../docs/getting-started/><span>Setup</span></a></li><li class=nav-item><a class="nav-link active" href=../../../../../docs/><span>Labs</span></a></li><li class=nav-item><a class=nav-link href=../../../../../slides/><span>Slides</span></a></li><li class=nav-item><a class=nav-link href=https://www.songlaa.ch target=_blank rel=noopener><span>songlaa gmbh</span></a></li></ul></div><div class="d-none d-lg-block"><div class="td-search td-search--offline"><div class=td-search__icon></div><input type=search class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=../../../../../offline-search-index.3c5ef1b5ba57235f4cd923e0a93aa42b.json data-offline-search-base-href=../../../../../ data-offline-search-max-results=10></div></div></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none"><div id=td-sidebar-menu class=td-sidebar__inner><form class="td-sidebar__search d-flex align-items-center"><div class="td-search td-search--offline"><div class=td-search__icon></div><input type=search class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=../../../../../offline-search-index.3c5ef1b5ba57235f4cd923e0a93aa42b.json data-offline-search-base-href=../../../../../ data-offline-search-max-results=10></div><button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type=button data-bs-toggle=collapse data-bs-target=#td-section-nav aria-controls=td-section-nav aria-expanded=false aria-label="Toggle section navigation"></button></form><nav class="td-sidebar-nav collapse" id=td-section-nav><ul class="td-sidebar-nav__section pe-md-3 ul-0"><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id=m-docs-li><a href=../../../../../docs/ class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id=m-docs><span>Labs</span></a><ul class=ul-1><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id=m-docscontainer-basics01-basics-li><a href=../../../../../docs/container-basics/01-basics/ class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id=m-docscontainer-basics01-basics><span>1. Docker Basics</span></a><ul class="ul-2 foldable"><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id=m-docscontainer-basics01-basics01_images-li><a href=../../../../../docs/container-basics/01-basics/01/_images/ class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id=m-docscontainer-basics01-basics01_images><span>1.1 Images</span></a></li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id=m-docscontainer-basics01-basics01_env-vars-li><a href=../../../../../docs/container-basics/01-basics/01/_env-vars/ class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id=m-docscontainer-basics01-basics01_env-vars><span>1.2 Environment variables</span></a></li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id=m-docscontainer-basics01-basics01_dockerfile-li><a href=../../../../../docs/container-basics/01-basics/01/_dockerfile/ class="align-left ps-0 active td-sidebar-link td-sidebar-link__page" id=m-docscontainer-basics01-basics01_dockerfile><span class=td-sidebar-nav-active-item>1.3 Dockerfile</span></a></li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id=m-docscontainer-basics01-basics01_dockerfile_ms-li><a href=../../../../../docs/container-basics/01-basics/01/_dockerfile_ms/ class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id=m-docscontainer-basics01-basics01_dockerfile_ms><span>1.4 MultiStage Build</span></a></li></ul></li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id=m-docsgetting-started-li><a href=../../../../../docs/getting-started/ class="align-left ps-0 td-sidebar-link td-sidebar-link__section" id=m-docsgetting-started><span>Getting Started</span></a></li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id=m-docscontainercontainer-li><a href=../../../../../docs/container/container/ class="align-left ps-0 td-sidebar-link td-sidebar-link__page" id=m-docscontainercontainer><span>Docker/Container Security</span></a></li></ul></li></ul></nav></div></aside><aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none"><div class="td-page-meta ms-2 pb-1 pt-2 mb-0"><a href=https://github.com/verysonglaa/k8s-security-training-website/tree/main/content/en/docs/container-basics/01-Basics/01/_dockerfile.md class="td-page-meta--view td-page-meta__view" target=_blank rel=noopener><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+<a href=https://github.com/verysonglaa/k8s-security-training-website/edit/main/content/en/docs/container-basics/01-Basics/01/_dockerfile.md class="td-page-meta--edit td-page-meta__edit" target=_blank rel=noopener><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+<a href="https://github.com/verysonglaa/k8s-security-training-website/new/main/content/en/docs/container-basics/01-Basics/01?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A" class="td-page-meta--child td-page-meta__child" target=_blank rel=noopener><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/verysonglaa/k8s-security-training-website/issues/new?title=1.3%20Dockerfile" class="td-page-meta--issue td-page-meta__issue" target=_blank rel=noopener><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a></div><div class=td-toc><nav id=TableOfContents><ul><li><a href=#dockerfile>Dockerfile</a></li><li><a href=#write-your-first-dockerfile>Write your first Dockerfile</a></li><li><a href=#build-the-image>Build the image</a><ul><li><a href=#what-happens-when-we-build-the-image>What happens when we build the image</a></li><li><a href=#sending-the-build-context-to-docker>Sending the build context to Docker</a></li><li><a href=#inspecting-step-execution>Inspecting step execution</a></li><li><a href=#the-caching-system>The caching system</a></li><li><a href=#run-it>Run it</a></li></ul></li><li><a href=#the-cmd-instruction-in-dockerfile>The CMD instruction in Dockerfile</a></li><li><a href=#frontend-app-image-build>Frontend app image build</a><ul><li><a href=#build-the-php-app-image>Build the php-app image</a></li><li><a href=#run-the-php-app-container>Run the php-app container</a></li></ul></li><li><a href=#optional-lab>Optional lab</a></li></ul></nav></div></aside><main class="col-12 col-md-9 col-xl-8 ps-md-5" role=main><nav aria-label=breadcrumb class=td-breadcrumbs><ol class=breadcrumb><li class=breadcrumb-item><a href=../../../../../docs/>Labs</a></li><li class=breadcrumb-item><a href=../../../../../docs/container-basics/01-basics/>1. Docker Basics</a></li><li class="breadcrumb-item active" aria-current=page>1.3 Dockerfile</li></ol></nav><div class=td-content><h1>1.3 Dockerfile</h1><header class=article-meta></header><h2 id=dockerfile>Dockerfile</h2><p>Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile.
+The basic docs on how Dockerfiles work can be found at <a href=https://docs.docker.com/engine/reference/builder/ target=_blank rel=noopener>https://docs.docker.com/engine/reference/builder/</a>
+.</p><h2 id=write-your-first-dockerfile>Write your first Dockerfile</h2><p>Before we extend our php image we are going to have a more general look at how to build a container image.
+For that, create a new directory with an empty Dockerfile in there.</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir myfirstimage
+</span></span><span style=display:flex><span><span style=color:#204a87>cd</span> myfirstimage
+</span></span></code></pre></div><p>Create a new File with the name <code>Dockerfile</code> and add the following content to that <code>Dockerfile</code> using your editor of choice:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=display:flex><span><span style=color:#204a87;font-weight:700>FROM</span><span style=color:#4e9a06> ubuntu</span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>RUN</span> apt-get update <span style=color:#ce5c00;font-weight:700>&amp;&amp;</span> <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span>    apt-get install -y figlet <span style=color:#ce5c00;font-weight:700>&amp;&amp;</span> <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span>    apt-get clean<span style=color:#a40000>
+</span></span></span></code></pre></div><ul><li><code>FROM</code> indicates the base image for our build</li><li>Each <code>RUN</code> line will be executed by Docker during the build</li><li>Our RUN commands must be non-interactive (no input can be provided to Docker during the build)</li><li>Check <a href=https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/ target=_blank rel=noopener>https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/</a>
+for further best practices on how to write Dockerfiles.</li></ul><h2 id=build-the-image>Build the image</h2><p>Just run:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker build -t myfirstimage .
+</span></span></code></pre></div><ul><li><code>-t</code> indicates the tag to apply to the image</li><li><code>.</code> indicates the location of the build context (which we will talk more about later, but is basically the directory where our Dockerfile is located)</li></ul><p>Please note that the tag can be omitted in most Docker commands and instructions. In that case, the tag defaults to <code>latest</code>. Besides being the default tag there&rsquo;s nothing special about <code>latest</code>. Despite its name, it does not necessarily identify the latest version of an image.<br>Depending on the build system it can point to the last image pushed, to the last image built from some branch, or to some old image. It can even not exist at all.<br>Because of this, you must never use the <code>latest</code> tag in production, always use a specific image version.<br>Also see: <a href=https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375 target=_blank rel=noopener>https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375</a></p><h3 id=what-happens-when-we-build-the-image>What happens when we build the image</h3><p>The output of the Docker build looks like this:</p><pre tabindex=0><code>Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM ubuntu
+ ---&gt; ea4c82dcd15a
+Step 2/2 : RUN apt-get update &amp;&amp;     apt-get install -y figlet &amp;&amp;     apt-get clean
+ ---&gt; b3c08112fd1c
+Successfully built b3c08112fd1c
+Successfully tagged myfirstimage:latest
+</code></pre><h3 id=sending-the-build-context-to-docker>Sending the build context to Docker</h3><pre tabindex=0><code>Sending build context to Docker daemon 84.48 kB
+...
+</code></pre><ul><li>The build context is the <code>.</code> directory given to docker build</li><li>It is sent (as an archive) to the Docker daemon by the Docker client</li><li>This allows you to use a remote machine to build using local files</li><li>Be careful (or patient) if that directory is big and your connection is slow</li></ul><h3 id=inspecting-step-execution>Inspecting step execution</h3><pre tabindex=0><code>...
+Step 1/2 : FROM ubuntu
+ ---&gt; ea4c82dcd15a
+Step 2/2 : RUN apt-get update &amp;&amp;     apt-get install -y figlet &amp;&amp;     apt-get clean
+ ---&gt; b3c08112fd1c
+Successfully built b3c08112fd1c
+Successfully tagged myfirstimage:latest
+</code></pre><ul><li>A container (ea4c82dcd15a) is created from the base image<ul><li>The base image will be pulled, if it was not pulled before</li></ul></li><li>The <code>RUN</code> command is executed in this container</li><li>The container is committed into an image (b3c08112fd1c)</li><li>The build container (ea4c82dcd15a) is removed</li><li>The output of this step will be the base image for the next one</li><li>&mldr;</li></ul><h3 id=the-caching-system>The caching system</h3><p>If you run the same build again, it will be instantaneous.
+Why?</p><ul><li>After each build step, Docker takes a snapshot</li><li>Before executing a step, Docker checks if it has already built the same sequence</li><li>Docker uses the exact strings defined in your Dockerfile:<ul><li><code>RUN apt-get install figlet cowsay</code> is different from</li><li><code>RUN apt-get install cowsay figlet</code></li><li><code>RUN apt-get update</code> is not re-executed when the mirrors are updated</li></ul></li><li>All steps after a modified step are re-executed since the filesystem it&rsquo;s based on may have changed</li></ul><p>You can force a rebuild with docker build &ndash;no-cache &mldr;</p><p>If you only want to trigger a partial rebuild, e.g. run <code>apt-get update</code> to install the latest updates,
+you can use the following pattern:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=display:flex><span><span style=color:#204a87;font-weight:700>ENV</span> REFRESHED_AT 2020-03-13<span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>RUN</span> apt-get update<span style=color:#a40000>
+</span></span></span></code></pre></div><p>If you update the value of <code>REFRESHED_AT</code> it will invalidate the Docker build cache of that and all
+the following steps, thus installing the latest updates.</p><h3 id=run-it>Run it</h3><p>Now run your image</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -ti myfirstimage
+</span></span></code></pre></div><p>You&rsquo;ll find yourself inside a Bash shell in the container, execute</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>figlet hello
+</span></span></code></pre></div><p>and you will see the following output:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@00f0766080ed:/# figlet hello
+</span></span><span style=display:flex><span> _          _ _
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>__   ___<span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> ___
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span> <span style=color:#a40000>&#39;</span>_ <span style=color:#4e9a06>\ </span>/ _ <span style=color:#4e9a06>\ </span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>/ _ <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>  __/ <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>(</span>_<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#000;font-weight:700>|</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span><span style=color:#4e9a06>\_</span>__<span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span><span style=color:#4e9a06>\_</span>__/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>root@00f0766080ed:/#
+</span></span></code></pre></div><p>exit the container by executing:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#204a87>exit</span>
+</span></span></code></pre></div><h2 id=the-cmd-instruction-in-dockerfile>The CMD instruction in Dockerfile</h2><p>With the <code>CMD</code> instruction in the Dockerfile, we can define the command that is executed when a container is started.</p><details><summary>🤔 Can you find out which CMD instruction the ubuntu image has?</summary><p>You did find yourself in a shell, so the instruction must either be <code>/usr/bin/bash</code> or <code>/usr/bin/sh</code>.</p></details><p>Modify the previously created Dockerfile as follows:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=display:flex><span><span style=color:#204a87;font-weight:700>FROM</span><span style=color:#4e9a06> ubuntu</span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>RUN</span> apt-get update <span style=color:#ce5c00;font-weight:700>&amp;&amp;</span> <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span>    apt-get install -y figlet <span style=color:#ce5c00;font-weight:700>&amp;&amp;</span> <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span>    apt-get clean<span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>CMD</span> <span style=color:#000;font-weight:700>[</span><span style=color:#4e9a06>&#34;figlet&#34;</span><span style=color:#000;font-weight:700>,</span> <span style=color:#4e9a06>&#34;hello&#34;</span><span style=color:#000;font-weight:700>]</span><span style=color:#a40000>
+</span></span></span></code></pre></div><p>Build the image with:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker build -t myfirstimagecmd .
+</span></span></code></pre></div><p>And run it:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -ti myfirstimagecmd
+</span></span></code></pre></div><p>It directly executes the defined command and prints out</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> _          _ _
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>__   ___<span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> ___
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span> <span style=color:#a40000>&#39;</span>_ <span style=color:#4e9a06>\ </span>/ _ <span style=color:#4e9a06>\ </span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>/ _ <span style=color:#4e9a06>\
+</span></span></span><span style=display:flex><span><span style=color:#4e9a06></span><span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>  __/ <span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>(</span>_<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#000;font-weight:700>|</span>
+</span></span><span style=display:flex><span><span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span> <span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span><span style=color:#4e9a06>\_</span>__<span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span>_<span style=color:#000;font-weight:700>|</span><span style=color:#4e9a06>\_</span>__/
+</span></span></code></pre></div><p>Check out <a href=https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact target=_blank rel=noopener>https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact</a>
+for more information.</p><h2 id=frontend-app-image-build>Frontend app image build</h2><p>After we got to grips with the image building basics, we now want to include the source code of our frontend app in an already-built container image. To achieve this we will create a Dockerfile.</p><p>The base image is our <code>php:8-apache</code> image which we used before. The <code>ADD</code> command allows us to add files from our current directory to the Docker image.
+We use this command to add the application source code into the image.</p><div class="alert alert-primary" role=alert><h4 class=alert-heading>Note</h4>Use <code>.dockerignore</code> to exclude files from the Docker context being added to the container. It works the same as <code>.gitignore</code>: <a href=https://docs.docker.com/engine/reference/builder/#dockerignore-file target=_blank rel=noopener>https://docs.docker.com/engine/reference/builder/#dockerignore-file</a></div><p>In the directory containing the subdirectory <code>php-app</code> create a Dockerfile with the following content:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=display:flex><span><span style=color:#204a87;font-weight:700>FROM</span><span style=color:#4e9a06> php:8-apache</span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#8f5902;font-style:italic># Copies the php source code to the correct location</span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>ADD</span> ./php-app/ /var/www/html/<span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#8f5902;font-style:italic># Install additional php extension</span><span style=color:#a40000>
+</span></span></span><span style=display:flex><span><span style=color:#a40000></span><span style=color:#204a87;font-weight:700>RUN</span> docker-php-ext-install mysqli<span style=color:#a40000>
+</span></span></span></code></pre></div><h3 id=build-the-php-app-image>Build the php-app image</h3><div class="alert alert-primary" role=alert><h4 class=alert-heading>Note</h4>Stop and delete the running <code>php-app</code> container first. Leave the database container running.</div><p>Now build the image:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker build -t php-app .
+</span></span></code></pre></div><h3 id=run-the-php-app-container>Run the php-app container</h3><p>After a succesful build, run it:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -d --network container-basics-training --name php-app -p8080:80 php-app
+</span></span></code></pre></div><p>Now open a browser and navigate to <a href=http://localhost:8080/db.php target=_blank rel=noopener>http://localhost:8080/db.php</a>
+(or in the webshell use <code>curl http://localhost:8080/db.php</code>).
+You should get a response saying &ldquo;Connected successfully&rdquo;.</p><h2 id=optional-lab>Optional lab</h2><p>Configuration should always be separate from the source code, so the database connection details must not be inside the php file <code>db.php</code>.
+Fix the code in the db.php file. According to the continuous delivery principles, we don&rsquo;t want usernames and passwords in our source code. Use the PHP global variable <code>$_ENV["&lt;environment variable name>"]</code> to read environment variables inside the container. Challenge yourself, this time the code is hidden. Try to find the solution before looking at it.</p><details><summary>Show me the solution</summary><p>Replace the line</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#000>$password</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#4e9a06>&#34;venkman&#34;</span><span style=color:#000;font-weight:700>;</span>
+</span></span></code></pre></div><p>with</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#000>$password</span> <span style=color:#ce5c00;font-weight:700>=</span> <span style=color:#000>$_ENV</span><span style=color:#000;font-weight:700>[</span><span style=color:#4e9a06>&#34;password&#34;</span><span style=color:#000;font-weight:700>];</span>
+</span></span></code></pre></div><p>and run the container by passing the necessary env var:</p><div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -d --name apache-php -e <span style=color:#000>password</span><span style=color:#ce5c00;font-weight:700>=</span>venkman -v <span style=color:#204a87;font-weight:700>$(</span><span style=color:#204a87>pwd</span><span style=color:#204a87;font-weight:700>)</span>/php-app:/var/www/html php:8-apache
+</span></span></code></pre></div></details><div class=td-page-meta__lastmod>Last modified September 9, 2024: <a href=https://github.com/verysonglaa/k8s-security-training-website/commit/7a6b10f467321195beddf8f461c6e459e8fe3596>feat: Container Basics, add chapters, resort, update hugo version (7a6b10f)</a></div></div></main></div></div><footer class="td-footer row d-print-none"><div class=container-fluid><div class="row mx-md-2"><div class="td-footer__left col-6 col-sm-4 order-sm-1"></div><div class="td-footer__right col-6 col-sm-4 order-sm-3"><ul class=td-footer__links-list><li class=td-footer__links-item data-bs-toggle=tooltip title=GitHub aria-label=GitHub><a target=_blank rel=noopener href=https://github.com/verysonglaa/k8s-security-training-website aria-label=GitHub><i class="fab fa-github"></i></a></li></ul></div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2"><span class=td-footer__copyright>&copy;
+2024
+<span class=td-footer__authors>songlaa gmbh</span></span><span class=td-footer__all_rights_reserved>All Rights Reserved</span></div></div></div></footer></div><script src=../../../../../js/main.min.37d14e870feb76f0f7a2a2422bae231efb0186c477999a4ab9ca7e9924ced592.js integrity="sha256-N9FOhw/rdvD3oqJCK64jHvsBhsR3mZpKucp+mSTO1ZI=" crossorigin=anonymous></script><script defer src=../../../../../js/click-to-copy.min.73478a7d4807698aed7e355eb23f9890ca18fea3158604c8471746d046702bad.js integrity="sha256-c0eKfUgHaYrtfjVesj+YkMoY/qMVhgTIRxdG0EZwK60=" crossorigin=anonymous></script><script src=../../../../../js/tabpane-persist.js></script></body></html>
