@@ -29,7 +29,7 @@ hugo mod get -u
 Command without hugo installation:
 
 ```bash
-export HUGO_VERSION=$(grep "FROM docker.io/floryn90/hugo" Dockerfile | sed 's/FROM docker.io\/floryn90\/hugo://g' | sed 's/ AS builder//g')
+export HUGO_VERSION=$(grep -oP "(?<=hugo-version: ')[^']*(?=')" .github/workflows/hugo.yaml)
 docker run --rm --interactive -v $(pwd):/src docker.io/floryn90/hugo:${HUGO_VERSION} mod get -u
 ```
 
@@ -39,13 +39,7 @@ To develop locally we don't want to rebuild the entire container image every tim
 We simply mount the working directory into a running container, where hugo is started in the server mode.
 
 ```bash
-export HUGO_VERSION=$(grep "FROM floryn90/hugo" Dockerfile | sed 's/FROM floryn90\/hugo://g' | sed 's/ AS builder//g')
-docker run --rm --publish 8080:8080 --volume $(pwd):/src floryn90/hugo:${HUGO_VERSION} server --port 8080
+export HUGO_VERSION=$(grep -oP "(?<=hugo-version: ')[^']*(?=')" .github/workflows/hugo.yaml)
+docker run --rm --publish 8080:8080 --volume $(pwd):/src floryn90/hugo:$HUGO_VERSION-ext-ubuntu server --port 8080
 ```
 
-Use the following command to set the hugo environment
-
-```bash
-export HUGO_VERSION=$(grep "FROM floryn90/hugo" Dockerfile | sed 's/FROM floryn90\/hugo://g' | sed 's/ AS builder//g')
-docker run --rm --publish 8080:8080 --volume $(pwd):/src floryn90/hugo:${HUGO_VERSION} server --port 8080 --environment=<environment>
-```

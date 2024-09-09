@@ -1,5 +1,5 @@
 ---
-title: "1. Getting started"
+title: "1. Docker Basics"
 weight: 1
 ---
 

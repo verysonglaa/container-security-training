@@ -1,6 +1,7 @@
 ---
-title: "3. Environment variables"
+title: "1.2 Environment variables"
 weight: 3
+sectionnumber: 10.2
 ---
 
 ## Environment variables
@@ -157,4 +158,58 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 7cb31f821233        mariadb             "docker-entrypoint..."   32 minutes ago      Up 32 minutes       3306/tcp            upbeat_blackwell
 ```
 
-We don't need both of them running, let us take care of that in the next lab.
+We don't need both of them running. To stop a container use the command:
+
+```bash
+docker stop <container>
+```
+
+After that, check the new state with
+
+```bash
+docker ps
+```
+
+This should show only one container running:
+
+```bash
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+699e82ed8f1f        mariadb             "docker-entrypoint..."   9 minutes ago       Up 9 minutes        3306/tcp            jolly_bardeen
+```
+
+We just exited the container "gracefully", but as an alternative you can also kill a container with the `docker kill <container>` command. This stops the container immediately by using the KILL signal.
+
+You may recognize that the container _upbeat_blackwell_ is not present in the container list anymore. That is because `docker ps` only shows running containers, but as always you have a parameter that helps:
+
+```bash
+docker ps --all
+```
+
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                         PORTS               NAMES
+699e82ed8f1f        mariadb             "docker-entrypoint..."   12 minutes ago      Up 12 minutes                  3306/tcp            jolly_bardeen
+7cb31f821233        mariadb             "docker-entrypoint..."   41 minutes ago      Exited (0) 2 minutes ago                           upbeat_blackwell
+67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
+```
+
+Now that the _upbeat_blackwell_ container is stopped delete it:
+
+```bash
+docker rm <container>
+```
+
+Now the container has disappeared from the list:
+
+```bash
+docker ps --all
+```
+
+```bash
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                         PORTS               NAMES
+699e82ed8f1f        mariadb             "docker-entrypoint..."   13 minutes ago      Up 13 minutes                  3306/tcp            jolly_bardeen
+67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
+```
+
+{{% alert title="Note" color="primary" %}}
+It is a good idea to delete unused containers to save disk space and remove the data wich resides in the read/write layer of the container.
+{{% /alert %}}
