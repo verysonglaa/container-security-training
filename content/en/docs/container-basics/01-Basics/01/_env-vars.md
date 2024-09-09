@@ -210,6 +210,8 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 67d79f95c712        hello-world         "/hello"                 About an hour ago   Exited (0) About an hour ago                       upbeat_boyd
 ```
 
-{{% alert title="Note" color="primary" %}}
-It is a good idea to delete unused containers to save disk space and remove the data wich resides in the read/write layer of the container.
-{{% /alert %}}
+It is a good idea to delete unused containers to save disk space and remove the data wich resides in the read/write layer of the container. So please delete the hello-word container too:
+
+```bash
+docker rm <container>
+```
