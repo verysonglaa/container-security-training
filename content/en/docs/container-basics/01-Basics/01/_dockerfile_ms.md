@@ -64,6 +64,16 @@ Please create two seperate images to see the actual size difference as well.
 
 {{% details title="Show me the solution" %}}
 
+We start by cloning the repository and building the orginal image:
+
+```bash
+git clone https://github.com/appuio/example-spring-boot-helloworld.git
+cd example-spring-boot-helloworld
+docker build -t example-spring-boot-helloworld:v0.1 .
+```
+
+Now let us build the next version using an optimized Dockerfile, change the content of `Dockerfile` to the text below:
+
 ```Dockerfile
 FROM registry.access.redhat.com/ubi9/openjdk-17 AS build
 
@@ -83,6 +93,13 @@ FROM registry.access.redhat.com/ubi9/openjdk-17-runtime
 EXPOSE 8080 9000
 
 COPY --from=build /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
+```
+
+Now build a new version of the image and compare the size:
+
+```bash
+docker build -t example-spring-boot-helloworld:v0.2 .
+docker images
 ```
 
 {{% /details %}}

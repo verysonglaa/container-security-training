@@ -28,6 +28,7 @@ Official Images are a good starting point, please read [here](https://docs.docke
   * Check the base image
   * Check the vulnerabilitis of this image. Does it affect your application?
   * Check the dependencies of the image.
+  * Compare the Digest to the online value on dockerhub.
 
 After an image has been downloaded, you may then run a container using the downloaded image with the sub-command `run`. If an image has not been downloaded when Docker is executed with the sub-command `run`, the Docker client will first download the image, then run a container using it:
 
