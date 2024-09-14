@@ -1,5 +1,5 @@
 ---
-title: "1.5 Under the hood"
+title: "1.6 Under the hood"
 weight: 6
 sectionnumber: 1.6
 ---
@@ -9,10 +9,10 @@ sectionnumber: 1.6
 We've learned that the term "Docker" is used somewhat imprecisely. It's employed to refer to various components such as the CLI (Command Line Interface), the Docker Engine, the OCI image format, and the Container runtime. Let's take a closer look at what's happening when we use the command
 
 ```bash
-docker run --rm -d --name sleep-container alpine sleep 900
+docker run --rm -d --name sleep-container alpine sleep 300
 ```
 
-We will come to the meaning of `-rm` and the other arguments later on. For now we need only to know that we started a container which sleeps for 900 seconds on our host.
+We will come to the meaning of `-rm` and the other arguments later on. For now we need only to know that we started a container which sleeps for 300 seconds on our host.
 First let us get the process id of the sleep process we just started:
 
 ```bash
@@ -29,7 +29,7 @@ we see something like this
 
 ```bash
 root       50221       1  0 17:00 ?        00:00:00 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 724930591e3fbf44f9cacb60285c0420464c41f5a6366e2b4443c2b53e6cd251 -address /run/containerd/containerd.sock
-root       53658   50221  0 17:00 ?        00:00:00  \_ sleep 900
+root       53658   50221  0 17:00 ?        00:00:00  \_ sleep 300
 ```
 
 indeed we see that we don't use docker as a container runtime but containerd at a higher level and runc at a lower level. The parent of each of these containerd-shim-runc-v2 processes is PID 1 on the system.

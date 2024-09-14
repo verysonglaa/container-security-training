@@ -1,6 +1,6 @@
 ---
 title: "1.2 Environment variables"
-weight: 3
+weight: 2
 sectionnumber: 1.2
 ---
 
@@ -214,4 +214,46 @@ It is a good idea to delete unused containers to save disk space and remove the 
 
 ```bash
 docker rm <container>
+```
+
+# Mounting a volume in a container
+
+{{% details title="🤔 I have a container with a database server running. What happens to my data when I remove the container?" %}}
+It's gone. The docker instance has no persistence layer to store data permanently, let us address that problem in this chapter.
+{{% /details %}}
+
+The MariaDB container is a good example as to why it's good to have an external volume.
+There are several possibilities on how to work with volumes in Docker, in this case, we're going to create a docker volume to store the persistent data of our MariaDB. The volume is managed by Docker itself.
+
+Create the docker-managed volume and attach it to a path in the container:
+
+```bash
+docker volume create volume-mariadb
+docker run --name mariadb-container-with-external-volume -v volume-mariadb:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=my-secret-pw -d mariadb
+```
+
+In case you are wondering where your data ends up you can inspect the volume with:
+
+```bash
+docker volume inspect volume-mariadb
+```
+
+Okay, now create a new user in the MariaDB container:
+
+```bash
+docker exec -it mariadb-container-with-external-volume mariadb -uroot -pmy-secret-pw
+```
+
+Inside the mariadb-client execute some SQL commands to grant user peter permissions to everything:
+
+```bash
+use mysql
+CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';
+GRANT SELECT ON * . * TO 'peter'@'%';
+```
+
+Once all steps are completed quit the mysql session and exit the container:
+
+```bash
+exit
 ```

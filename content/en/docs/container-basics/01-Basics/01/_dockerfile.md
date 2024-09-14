@@ -1,5 +1,5 @@
 ---
-title: "1.3 Dockerfile"
+title: "1.4 Dockerfile"
 weight: 4
 sectionnumber: 1.4
 ---
@@ -11,7 +11,7 @@ The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/
 
 ## Write your first Dockerfile
 
-Before we extend our php image we are going to have a more general look at how to build a container image.
+Let us have a general look at how to build a container image.
 For that, create a new directory with an empty Dockerfile in there.
 
 ```bash
@@ -200,72 +200,55 @@ Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-
 
 ## Frontend app image build
 
-After we got to grips with the image building basics, we now want to include the source code of our frontend app in an already-built container image. To achieve this we will create a Dockerfile.
+Now we are familiar with the image building process we have a more detailed look at our frontend image. You can find the source code [here](https://github.com/songlaa/container-lab-fronted).
 
-The base image is our `php:8-apache` image which we used before. The `ADD` command allows us to add files from our current directory to the Docker image.
-We use this command to add the application source code into the image.
+We see that the developer has become quite lazy and has not updated the python to the latest image, he did not even care to create sensible tags. So let us do it ourselfs.
 
-{{% alert title="Note" color="primary" %}}
-Use `.dockerignore` to exclude files from the Docker context being added to the container. It works the same as `.gitignore`: <https://docs.docker.com/engine/reference/builder/#dockerignore-file>
-{{% /alert %}}
-
-In the directory containing the subdirectory `php-app` create a Dockerfile with the following content:
-
-```Dockerfile
-FROM php:8-apache
-
-# Copies the php source code to the correct location
-ADD ./php-app/ /var/www/html/
-
-# Install additional php extension
-RUN docker-php-ext-install mysqli
-```
-
-### Build the php-app image
-
-{{% alert title="Note" color="primary" %}}
-Stop and delete the running `php-app` container first. Leave the database container running.
-{{% /alert %}}
-
-Now build the image:
+Check out the repository
 
 ```bash
-docker build -t php-app .
+git clone https://github.com/songlaa/container-lab-fronted
+cd container-lab-fronted
 ```
 
-### Run the php-app container
+You should have the necessary knowledge now to update and rebuild the image locally with a sensible tag. Delete the currently running container and start a new one with updated python.
 
-After a succesful build, run it:
+
+{{% details title="I'm lost, show me the solution" %}}
+
+First of all we need to check for the latest python base image. You could do this in dockerhub:
 
 ```bash
-docker run -d --network container-basics-training --name php-app -p8080:80 php-app
+grep FROM Dockerfile
 ```
 
-Now open a browser and navigate to <http://localhost:8080/db.php> (or in the webshell use `curl http://localhost:8080/db.php`).
-You should get a response saying "Connected successfully".
-
-## Optional lab
-
-Configuration should always be separate from the source code, so the database connection details must not be inside the php file `db.php`.
-Fix the code in the db.php file. According to the continuous delivery principles, we don't want usernames and passwords in our source code. Use the PHP global variable `$_ENV["<environment variable name>"]` to read environment variables inside the container. Challenge yourself, this time the code is hidden. Try to find the solution before looking at it.
-
-{{% details title="Show me the solution" %}}
-Replace the line
-
-```php
-$password = "venkman";
-```
-
-with
-
-```php
-$password = $_ENV["password"];
-```
-
-and run the container by passing the necessary env var:
+We see that currently we use version 3.9 of python, a look at [https://hub.docker.com/_/python](https://hub.docker.com/_/python) shows us that that the most recent one at the time of writing is 3.12.
+Replace the from line with this new value
 
 ```bash
-docker run -d --name apache-php -e password=venkman -v $(pwd)/php-app:/var/www/html php:8-apache
+FROM python:3.12-slim
 ```
 
+And then we build it using a version tag
+
+```bash
+docker build -t container-lab-frontend:v1.0 .
+docker images
+```
+
+Finally we kill the currently running container and start our new one, hopefully we still have $ip saved in our shell:
+
+```bash
+docker stop frontend
+docker rm frontend
+docker run -d --name frontend -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v1.0
+```
+
+{{% /details %}}
+
+
+{{% details title="🤔 What did we update by rebuilding the image?" %}}
+We did not only update python to a recent version but also the modules in python!
+Generally you should build & deploy very often to avoid configuration drift and keep your software up to date!
+A common solution to update your dependencies is [https://docs.renovatebot.com/](https://docs.renovatebot.com/)
 {{% /details %}}
