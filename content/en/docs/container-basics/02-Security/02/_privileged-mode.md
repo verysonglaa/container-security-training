@@ -1,7 +1,7 @@
 ---
-title: "2.6 Privileged Containers"
-weight: 26
-sectionnumber: 2.6
+title: "2.7 Privileged Containers"
+weight: 27
+sectionnumber: 2.7
 ---
 
 # An note on privileged containers

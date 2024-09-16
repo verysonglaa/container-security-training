@@ -44,6 +44,6 @@ As you can see, we obtain the library name, CVE vulnerability number, severity l
 
 With this data, we can upgrade libraries with fixes, assess the risk level of unfixed vulnerabilities, and remove unnecessary vulnerable libraries. Additionally, we have the opportunity to explore alternative libraries that are more secure.
 
-In our case we might find some vulerable java libaries which need to be updated in the file `build.gradle`. If you have some experience with gradle you can try to fix it and build a new image.
+In our case we might find some vulnerable java libaries which need to be updated in the file `build.gradle`. If you have some experience with gradle you can try to fix it and build a new image.
 
 In SSLDC scanning tools like this are mostly part of a mandatory step in a CI/CD Pipeline before uploading the image to a registry. Generally CVE's with a score up to a certain treshold are accepted and the rest is blocked.
