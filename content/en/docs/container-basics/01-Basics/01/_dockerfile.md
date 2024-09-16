@@ -202,7 +202,7 @@ Check out <https://docs.docker.com/engine/reference/builder/#understand-how-cmd-
 
 Now we are familiar with the image building process we have a more detailed look at our frontend image. You can find the source code [here](https://github.com/songlaa/container-lab-fronted).
 
-We see that the developer has become quite lazy and has not updated the python to the latest image, he did not even care to create sensible tags. So let us do it ourselfs.
+We see that the developer has become quite lazy and has not updated the python to the latest version, he did not even care to create sensible tags. So let us do it ourselves using the tag `v1.0`
 
 Check out the repository
 
@@ -211,10 +211,9 @@ git clone https://github.com/songlaa/container-lab-fronted
 cd container-lab-fronted
 ```
 
-You should have the necessary knowledge now to update and rebuild the image locally with a sensible tag. Delete the currently running container and start a new one with updated python.
+You should have the necessary knowledge now to update and rebuild the image locally. Delete the currently running container and start a new one with updated python.
 
-
-{{% details title="I'm lost, show me the solution" %}}
+{{% details title="😳 I'm lost, show me the solution" %}}
 
 First of all we need to check for the latest python base image. You could do this in dockerhub:
 
@@ -222,14 +221,15 @@ First of all we need to check for the latest python base image. You could do thi
 grep FROM Dockerfile
 ```
 
-We see that currently we use version 3.9 of python, a look at [https://hub.docker.com/_/python](https://hub.docker.com/_/python) shows us that that the most recent one at the time of writing is 3.12.
+We see that currently we use version 3.9 of python, a look at [https://hub.docker.com/_/python](https://hub.docker.com/_/python) shows us that that the most recent version, at the time of writing is 3.12.
+
 Replace the from line with this new value
 
 ```bash
 FROM python:3.12-slim
 ```
 
-And then we build it using a version tag
+And then we build it using tag `v1.0`
 
 ```bash
 docker build -t container-lab-frontend:v1.0 .

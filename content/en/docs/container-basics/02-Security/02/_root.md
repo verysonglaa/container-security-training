@@ -1,5 +1,5 @@
 ---
-title: "2.2 Privileges"
+title: "2.2 Avoid Root"
 weight: 22
 sectionnumber: 2.2
 ---
@@ -11,7 +11,9 @@ Since containers share the host's kernel, a vulnerable kernel exposes all contai
 
 ## User Management in Docker
 
-We learnt that if nothing else is configured u user with a container runs as root. Configuring the container to use an unprivileged user is the best way to prevent privilege escalation attacks. This can be accomplished in three different ways as follows:
+We learnt that if nothing else is configured u user with a container runs as root. Configuring the container to use an unprivileged user is the best way to prevent privilege escalation attacks. This can be accomplished in three different ways.
+
+### Run as different user
 
 First during runtime using -u option of docker run command, check the differences
 
@@ -21,6 +23,8 @@ docker run -u guest alpine id
 ```
 
 Note that the users we are running as must exist in the /etc/passwd of the Docker container. Otherwise, the command will fail as it fails to resolve the username to a user entry in the /etc/passwd file. As an alternative you can run it using an arbitrary uid. In all cases the user must have the necessary rights to execute the binaries or read the files needed in the container. For `alpine` this works because most binaries are set to read/execute for everyone (755).
+
+### Add USER to Dockerfile
 
 A second way is to set it in the image. Simply add user in Dockerfile and use it
 
@@ -94,22 +98,35 @@ Now build it using the tag `v2.0` make sure you are in the frontend directory:
 docker build -t container-lab-frontend:v2.0 .
 ```
 
-Now we stop the currently running container and start our new one, hopefully we still have $ip saved in our shell:
+Now we stop the currently running container and start our new one:
 
 ```bash
 docker stop frontend
 docker rm frontend
+export ip=$(docker inspect mariadb-container-with-external-volume  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
 docker run --name frontend -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v2.0
 docker top frontend
 ```
 
 {{% /details %}}
 
+### Configure the Docker Daemon to user USER namespaces
+
 Both ways to change to user are fine. But what, if need to run an image which requires root privileges inside the container?
+
 This is where the third option comes into play. It makes use of the Linux USER namespace to re-map the root user within the container to a less-privileged user in the host machine.
 
 In this way, the container will be running as root, but that root is mapped to an user that has no privileges on the host.
 User namespaces are not enabled by default and require to modify the start parametes for the docker deamon.
 
-User namespaces are not enabled by default for Docker and require to modify the start parametes for the docker deamon. More on that topic in the [official documentation](https://docs.docker.com/engine/security/userns-remap/).
+More on that topic in the [official documentation](https://docs.docker.com/engine/security/userns-remap/).
 
+Other container runtimes like `podman` automatically enable user-namespaces, there is a excellent article on that topic [here](https://www.redhat.com/en/blog/understanding-root-inside-and-outside-container), if you want to read more.
+
+## Why to avoid running as root
+
+We learnt that altough we are root in a container there are restrictions like cgroups, namespaces and capabilities in place so why care?
+
+There are multiple ways gain elevated privileges in docker, by having multiple security layers in depth in place we make it harder for an attacker in case of an exploit or a misconfiguration is in place.
+
+If you are good on time you can have a look at numerous privilege escalation options [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation).

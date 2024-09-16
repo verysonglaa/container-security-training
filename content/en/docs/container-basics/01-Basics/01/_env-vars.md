@@ -216,7 +216,7 @@ It is a good idea to delete unused containers to save disk space and remove the 
 docker rm <container>
 ```
 
-# Mounting a volume in a container
+## Mounting a volume in a container
 
 {{% details title="🤔 I have a container with a database server running. What happens to my data when I remove the container?" %}}
 It's gone. The docker instance has no persistence layer to store data permanently, let us address that problem in this chapter.
@@ -244,12 +244,12 @@ Okay, now create a new user in the MariaDB container:
 docker exec -it mariadb-container-with-external-volume mariadb -uroot -pmy-secret-pw
 ```
 
-Inside the mariadb-client execute some SQL commands to grant user peter permissions to everything:
+Inside the mariadb-client execute some SQL commands to grant user peter read permissions to the user table:
 
 ```bash
 use mysql
 CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';
-GRANT SELECT ON * . * TO 'peter'@'%';
+GRANT SELECT ON mysql.user TO 'peter'@'%';
 ```
 
 Once all steps are completed quit the mysql session and exit the container:
