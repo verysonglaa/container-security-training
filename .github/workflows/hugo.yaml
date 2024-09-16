@@ -42,4 +42,4 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          cname: k8s-sec.songlaa.com
+          cname: container-security.songlaa.com
