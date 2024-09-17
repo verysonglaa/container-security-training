@@ -8,7 +8,7 @@ menu:
 
 {{< blocks/section color="light">}}
   
-{{% blocks/feature icon="fa-chalkboard-teacher" url="https://drive.google.com/file/d/1d9FOv9GMJzJtX0yiXW0qVtXiZn3rwIfC/view?usp=sharing" title="Kubernetes Security Basics" %}}
+{{% blocks/feature icon="fa-chalkboard-teacher" url="<https://drive.google.com/file/d/1d9FOv9GMJzJtX0yiXW0qVtXiZn3rwIfC/view?usp=sharing>" title="Container Security Basics" %}}
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa-chalkboard-teacher" url="../pdf/pdf.pdf" title="Lab PDF" %}}

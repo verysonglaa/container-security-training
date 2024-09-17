@@ -1,4 +1,4 @@
-# k8s-security-training-website
+# Container Security Training
 
 ## Content Sections
 
