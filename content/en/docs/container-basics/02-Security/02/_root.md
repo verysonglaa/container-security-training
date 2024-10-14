@@ -53,13 +53,19 @@ Let us stop and start the container with an user which does not exist on the hos
 ```bash
 docker stop frontend
 docker rm frontend
-docker run -u 1001 --name frontend -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v1.0
+docker run -u 1001 -d --name frontend -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v1.0
 docker top frontend
 ```
 
 Ok, this is fine but even better would be to have it as an default already in the Dockerfile. Please change the Dockerfile of the frontend application to use an new user and build it with a tag of v2.0. Try do do it on you own before checking the solution.
 
 {{% details title="I'm lost, show me the solution" %}}
+
+First make sure you are in the right directory:
+
+```bash
+cd container-lab-frontend
+```
 
 Change your Dockerfile to match the content below:
 
@@ -104,7 +110,7 @@ Now we stop the currently running container and start our new one:
 docker stop frontend
 docker rm frontend
 export ip=$(docker inspect mariadb-container-with-external-volume  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
-docker run --name frontend -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v2.0
+docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip container-lab-frontend:v2.0
 docker top frontend
 ```
 

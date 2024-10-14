@@ -16,12 +16,22 @@ We will come to the meaning of `-rm` and the other arguments later on. For now w
 First let us get the process id of the sleep process we just started:
 
 ```bash
-PID=`docker inspect --format '{{.State.Pid}}' sleep-container`
+docker inspect --format '{{.State.Pid}}' sleep-container
 ```
 
-Let us see the process running:
+Let us see the process running. In the webshell we have the docker backend running in another container, let us first change into that:
 
 ```bash
+kubectl exec -it deployment/$USER-webshell -c dind -- sh
+```
+
+Don't worry the command will make sense after the Kubernetes Security training.
+
+Let us see the process running on the host now:
+
+```bash
+PID=$(pgrep sleep)
+apk add procps
 ps -u root -U root --forest -f | grep -B1 $PID
 ```
 
@@ -39,7 +49,8 @@ The shim becomes the parent process of the containerized application. It is resp
 Secondly we see that in the end a container is just a processes running on the host. If nothing else is configured it runs as root! Let us see the different isolation techniques beeing used:
 
 ```bash
-sudo lsns -p $PID
+apk add util-linux
+lsns -p $PID
 ```
 
 which shows use the different (and newly created) namespaces beeing used for this container:
@@ -57,3 +68,9 @@ which shows use the different (and newly created) namespaces beeing used for thi
 ```
 
 By comparision a simple sleep command in the current shell would run in the same namespaces as the parent shell giving no isolation.
+
+Don't forget to exit our Docker backend container if you work in the webshell
+
+```bash
+exit
+```

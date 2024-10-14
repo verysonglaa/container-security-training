@@ -4,7 +4,7 @@ weight: 27
 sectionnumber: 2.7
 ---
 
-# An note on privileged containers
+## A note on privileged containers
 
 The --privileged option in Docker is a special flag that gives the container full access to the host system. It’s much more powerful than simply assigning specific capabilities because it bypasses most of Docker's built-in security restrictions and grants the container elevated permissions, similar to running as root on the host. Often times you will see it in tutorials for running Docker inside Docker or similar things.
 

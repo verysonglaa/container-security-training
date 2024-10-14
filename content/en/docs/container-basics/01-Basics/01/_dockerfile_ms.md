@@ -67,6 +67,7 @@ Please create two seperate images to see the actual size difference as well.
 We start by cloning the repository and building the orginal image:
 
 ```bash
+cd /home/project
 git clone https://github.com/appuio/example-spring-boot-helloworld.git
 cd example-spring-boot-helloworld
 docker build -t example-spring-boot-helloworld:v0.1 .

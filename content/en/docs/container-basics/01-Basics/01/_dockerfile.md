@@ -110,17 +110,6 @@ Why?
 
 You can force a rebuild with docker build --no-cache ...
 
-If you only want to trigger a partial rebuild, e.g. run `apt-get update` to install the latest updates,
-you can use the following pattern:
-
-```Dockerfile
-ENV REFRESHED_AT 2020-03-13
-RUN apt-get update
-```
-
-If you update the value of `REFRESHED_AT` it will invalidate the Docker build cache of that and all
-the following steps, thus installing the latest updates.
-
 ### Run it
 
 Now run your image

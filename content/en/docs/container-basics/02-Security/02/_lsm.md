@@ -56,7 +56,7 @@ To apply this profile to an Nginx container, you can use the Docker command line
 ```bash
 docker stop frontend
 docker rm frontend
-docker run --name frontend -e username=peter -e password=venkman -e servername=$ip \
+docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip \
         --cap-drop ALL --security-opt=no-new-privileges \
         --read-only --tmpfs /tmp \
         --security-opt seccomp=frontend-seccomp.json container-lab-frontend:v2.0

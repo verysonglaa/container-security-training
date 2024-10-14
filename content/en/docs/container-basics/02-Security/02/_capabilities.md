@@ -4,7 +4,7 @@ weight: 23
 sectionnumber: 2.3
 ---
 
-## Understanding Container Capabilities and How to Configure Them for Minimal Use
+## Understanding container capabilities
 
 Capabilities in Linux are fine-grained controls that are part of the POSIX permissions system. These capabilities allow you to limit or extend the privileges of a process.
 Container capabilities are a set of predefined permissions that control what operations a container can perform on the host system. By default, containers run with a wide set of capabilities, but in many cases, they do not require all of them, so giving them only the permissions they need makes them safer to use.
@@ -42,14 +42,14 @@ Let us optimize our Frontend Application even further. We stop it and then start
 docker stop frontend
 docker rm frontend
 export ip=$(docker inspect mariadb-container-with-external-volume  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
-docker run --name frontend -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges container-lab-frontend:v2.0
+docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges container-lab-frontend:v2.0
 ```
 
 Let's see if it is still running
 
 ```bash
-frontendIP=$(docker frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
-curl http:\\$frontendIP
+frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
+curl http://$frontendIP:5000
 ```
 
 and you should still see the available users in the backend database.

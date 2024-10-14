@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Kubernetes Security Training"
+title = "Container Security Training"
 relativeURLs=true
 
 enableGitInfo = true
@@ -53,7 +53,7 @@ anchor = "smart"
 
 [Languages]
 [Languages.en]
-title = "Kubernetes Security Training"
+title = "Container Security Training"
 languageName = "English"
 weight = 1
 

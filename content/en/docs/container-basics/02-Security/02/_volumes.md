@@ -38,5 +38,12 @@ We continue on improving security for our `frontend` application by adding this 
 ```bash
 docker stop frontend
 docker rm frontend
-docker run --name frontend -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges --read-only --tmpfs /tmp container-lab-frontend:v2.0
+docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges --read-only --tmpfs /tmp container-lab-frontend:v2.0
+```
+
+You can check it with curl, normally we should get the same ip
+
+```bash
+frontendIP=$(docker frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
+curl http://$frontendIP:5000
 ```
