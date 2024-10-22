@@ -16,7 +16,7 @@ docker run -it -e MARIADB_ROOT_PASSWORD=my-secret-pw mariadb
 
 Once you run the command you will see an output like this:
 
-```bash
+```
 
 Initializing database
 
@@ -110,7 +110,7 @@ mariadb -uroot -pmy-secret-pw
 
 If everything works as expected, you should now see the MariaDB command line:
 
-```bash
+```
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 8
 Server version: 10.3.8-MariaDB-1:10.3.8+maria~jessie mariadb.org binary distribution
@@ -172,7 +172,7 @@ docker ps
 
 This should show only one container running:
 
-```bash
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 699e82ed8f1f        mariadb             "docker-entrypoint..."   9 minutes ago       Up 9 minutes        3306/tcp            jolly_bardeen
 ```
@@ -252,8 +252,10 @@ CREATE USER 'peter'@'%' IDENTIFIED BY 'venkman';
 GRANT SELECT ON mysql.user TO 'peter'@'%';
 ```
 
-Once all steps are completed quit the mysql session and exit the container:
+Once all steps are completed quit the mysql session which also will exit the container:
 
 ```bash
 exit
 ```
+
+We have added a new user to our DB and persistet the data through the use of volumes!

@@ -87,6 +87,17 @@ offlineSearch = true
 
 automaticSectionNumbers = true
 
+[[params.replaceContent.placeholders]]
+placeholder = "<namespace>"
+queryParam = "n"
+defaultValue = "$USER"
+
+[[params.replaceContent.placeholders]]
+placeholder = "<appdomain>"
+queryParam = "a"
+defaultValue = "training.songlaa.com"
+
+
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false

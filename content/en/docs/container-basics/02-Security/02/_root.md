@@ -26,7 +26,7 @@ Note that the users we are running as must exist in the /etc/passwd of the Docke
 
 ### Add USER to Dockerfile
 
-A second way is to set it in the image. Simply add user in Dockerfile and use it
+A second way is to set it in the image. Simply add user in Dockerfile and use it, here is an example:
 
 ```
 FROM alpine
@@ -64,7 +64,7 @@ Ok, this is fine but even better would be to have it as an default already in th
 First make sure you are in the right directory:
 
 ```bash
-cd container-lab-frontend
+cd /home/project/container-lab-frontend
 ```
 
 Change your Dockerfile to match the content below:

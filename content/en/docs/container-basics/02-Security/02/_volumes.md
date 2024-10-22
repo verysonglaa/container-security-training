@@ -7,7 +7,7 @@ sectionnumber: 2.4
 
 So far we configured user and process permissions of the container. Another important step is to check the filesystem permissions and mount options of a container.
 
-A common method is to run the containers with a read-only filesystem.  Please try the following:
+A common method is to run the containers with a read-only filesystem.  Let us try to write into a read-only mounted filesystem:
 
 ```bash
 docker run --rm --read-only alpine sh -c 'echo "whatever" > /tmp/blub'
@@ -27,7 +27,7 @@ Try it using:
 docker run --rm --read-only --tmpfs /tmp alpine sh -c 'echo "whatever" > /tmp/blub'
 ```
 
-In addition, if the volume is mounted only for reading mount them as a read-only It can be done by appending :ro to the -v like this:
+In addition, if the volume is mounted only for reading, mount them as a read-only. It can be done by appending :ro to the -v. Here is an example:
 
 ```
 docker run -v volume-name:/path/in/container:ro alpine
@@ -41,9 +41,9 @@ docker rm frontend
 docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges --read-only --tmpfs /tmp container-lab-frontend:v2.0
 ```
 
-You can check it with curl, normally we should get the same ip
+You can check now with curl that our frontend is still running fine:
 
 ```bash
-frontendIP=$(docker frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
+frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
 curl http://$frontendIP:5000
 ```

@@ -52,7 +52,6 @@ The output should look similar to the following:
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 mariadb             11.5                58730544b81b        2 weeks ago         397MB
 hello-world         latest              1815c82652c0        2 months ago        1.84kB
-hello-world         linux               1815c82652c0        2 months ago        1.84kB
 ```
 
 The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.

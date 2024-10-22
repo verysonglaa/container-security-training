@@ -35,4 +35,8 @@ Which will show only the IP of the container as output:
 172.17.0.4
 ```
 
-As we don't have a browser in the webshell use `curl http://172.17.0.4:5000` to open the page in your terminal, on your local installation you can simply open <http://172.17.0.4:5000> using your browser.
+As we don't have a browser in the webshell use `curl http://172.17.0.4:5000` to open the page in your terminal. On alocal installation you could simply open <http://172.17.0.4:5000> using your browser.
+
+```bash
+curl http://172.17.0.4:5000`
+```

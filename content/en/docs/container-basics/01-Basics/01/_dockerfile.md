@@ -126,7 +126,7 @@ figlet hello
 
 and you will see the following output:
 
-```bash
+```
 root@00f0766080ed:/# figlet hello
  _          _ _
 | |__   ___| | | ___
@@ -196,6 +196,7 @@ We see that the developer has become quite lazy and has not updated the python t
 Check out the repository
 
 ```bash
+cd /home/project
 git clone https://github.com/songlaa/container-lab-fronted
 cd container-lab-fronted
 ```
