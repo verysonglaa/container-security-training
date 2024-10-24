@@ -74,7 +74,7 @@ docker inspect frontend | grep seccomp
 And again as a final check we test if our service is still available:
 
 ```bash
-frontendIP=$(docker frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
+frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
 curl http://$frontendIP:5000
 ```
 

@@ -64,7 +64,7 @@ Ok, this is fine but even better would be to have it as an default already in th
 First make sure you are in the right directory:
 
 ```bash
-cd /home/project/container-lab-frontend
+cd /home/project/container-lab-fronted
 ```
 
 Change your Dockerfile to match the content below:
