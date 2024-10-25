@@ -1,14 +1,14 @@
 ---
 title: "Container Runtime Security"
-weight: 28
-sectionnumber: 2.8
+weight: 29
+sectionnumber: 2.9
 ---
 
-Do the following commands and outputs carefully:
+Do the following commands and read the outputs carefully:
 
 ```bash
-user1@localhost$ whoami
-user1@localhost$ head -1 /etc/shadow
+whoami
+head -1 /etc/shadow
 ```
 
 Now do this:

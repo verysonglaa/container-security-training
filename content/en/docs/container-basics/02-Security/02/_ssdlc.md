@@ -22,7 +22,7 @@ We have several tools to track the dependencies which our application/images are
 trivy image --format spdx-json --output result.json example-spring-boot-helloworld:v0.1
 ```
 
-Once done, the scanner will scan the files/image and determine which language is the application written. Once determined, it will download the database pertaining to that specific language and get the list of libraries that are present in that language and check against which are being used in the current context. We can now examine that file and examine all libraries and packes installed in the image
+Sometimes the trivy API gets overwhelmed with requests and reports an Error, just try again after a minute if that happens. Once done, the scanner will scan the files/image and determine which language is the application written. Once determined, it will download the database pertaining to that specific language and get the list of libraries that are present in that language and check against which are being used in the current context. We can now examine that file and examine all libraries and packes installed in the image
 
 ```bash
 jq . result.json

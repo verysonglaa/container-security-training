@@ -1,7 +1,7 @@
 ---
 title: "Capabilities"
-weight: 23
-sectionnumber: 2.3
+weight: 24
+sectionnumber: 2.4
 ---
 
 ## Understanding container capabilities

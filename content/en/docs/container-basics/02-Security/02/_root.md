@@ -1,7 +1,7 @@
 ---
 title: "Avoid Root"
-weight: 22
-sectionnumber: 2.2
+weight: 23
+sectionnumber: 2.3
 ---
 
 
@@ -134,5 +134,3 @@ Other container runtimes like `podman` automatically enable user-namespaces, the
 We learnt that altough we are root in a container there are restrictions like cgroups, namespaces and capabilities in place so why care?
 
 There are multiple ways gain elevated privileges in docker, by having multiple security layers in depth in place we make it harder for an attacker in case of an exploit or a misconfiguration is in place.
-
-If you are good on time you can have a look at numerous privilege escalation options [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/docker-security/docker-breakout-privilege-escalation).

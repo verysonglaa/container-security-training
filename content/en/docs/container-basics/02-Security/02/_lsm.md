@@ -1,7 +1,7 @@
 ---
 title: "Linux Security Modules"
-weight: 26
-sectionnumber: 2.6
+weight: 27
+sectionnumber: 2.7
 ---
 
 
@@ -62,8 +62,6 @@ docker run --name frontend -d -e username=peter -e password=venkman -e servernam
         --read-only --tmpfs /tmp \
         --security-opt seccomp=frontend-seccomp.json container-lab-frontend:v2.0
 ```
-
-Replace `/path/to/nginx-seccomp.json` with the actual path to your Seccomp profile.
 
 You can check if the Seccomp profile is applied by inspecting the container:
 
