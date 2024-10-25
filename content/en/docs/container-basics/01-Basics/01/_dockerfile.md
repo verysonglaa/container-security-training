@@ -51,22 +51,33 @@ Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3bab
 
 ### What happens when we build the image
 
-The output of the Docker build looks like this:
+The output of the Docker build looks similiar to this:
 
 ```
-Sending build context to Docker daemon  2.048kB
-Step 1/2 : FROM ubuntu
- ---> ea4c82dcd15a
-Step 2/2 : RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean
- ---> b3c08112fd1c
-Successfully built b3c08112fd1c
-Successfully tagged myfirstimage:latest
+[+] Building 13.3s (6/6) FINISHED                                                                                                                                                                     docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                                                            0.1s
+ => => transferring dockerfile: 127B                                                                                                                                                                            0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:latest                                                                                                                                                1.4s
+ => [internal] load .dockerignore                                                                                                                                                                               0.1s
+ => => transferring context: 2B                                                                                                                                                                                 0.0s
+ => [1/2] FROM docker.io/library/ubuntu:latest@sha256:99c35190e22d294cdace2783ac55effc69d32896daaa265f0bbedbcde4fbe3e5                                                                                          3.1s
+ => => resolve docker.io/library/ubuntu:latest@sha256:99c35190e22d294cdace2783ac55effc69d32896daaa265f0bbedbcde4fbe3e5                                                                                          0.1s
+ => => sha256:99c35190e22d294cdace2783ac55effc69d32896daaa265f0bbedbcde4fbe3e5 6.69kB / 6.69kB                                                                                                                  0.0s
+ => => sha256:5d070ad5f7fe63623cbb99b4fc0fd997f5591303d4b03ccce50f403957d0ddc4 424B / 424B                                                                                                                      0.0s
+ => => sha256:59ab366372d56772eb54e426183435e6b0642152cb449ec7ab52473af8ca6e3f 2.30kB / 2.30kB                                                                                                                  0.0s
+ => => sha256:ff65ddf9395be21bfe1f320b7705e539ee44c1053034f801b1a3cbbf2d0f4056 29.75MB / 29.75MB                                                                                                                0.9s
+ => => extracting sha256:ff65ddf9395be21bfe1f320b7705e539ee44c1053034f801b1a3cbbf2d0f4056                                                                                                                       1.7s
+ => [2/2] RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean                                                                                                                              8.1s
+ => exporting to image                                                                                                                                                                                          0.3s 
+ => => exporting layers                                                                                                                                                                                         0.2s 
+ => => writing image sha256:9739703b2866e9100738cefc2f5c7cb0b9cd2b005e5770829a7608ca55bdcfb5                                                                                                                    0.0s 
+ => => naming to docker.io/library/myfirstimage 
 ```
 
 ### Sending the build context to Docker
 
 ```
-Sending build context to Docker daemon 84.48 kB
+transferring context: 2B
 ...
 ```
 
@@ -79,21 +90,40 @@ Sending build context to Docker daemon 84.48 kB
 
 ```
 ...
-Step 1/2 : FROM ubuntu
- ---> ea4c82dcd15a
-Step 2/2 : RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean
- ---> b3c08112fd1c
-Successfully built b3c08112fd1c
-Successfully tagged myfirstimage:latest
+[1/2] FROM docker.io/library/ubuntu:latest
+ => => resolve docker.io/library/ubuntu:latest
+ => => sha256:99c35190e22d294cdace2783ac55effc69d32896daaa265f0bbedbcde4fbe3e5 6.69kB / 6.69kB
+ [...]
+ => => extracting sha256:ff65ddf9395be21bfe1f320b7705e539ee44c1053034f801b1a3cbbf2d0f4056  
+[2/2] RUN apt-get update &&     apt-get install -y figlet &&     apt-get clean                                                                                                                              8.1s
+ => exporting to image                                                                                                                                                                                          0.3s 
+ => => exporting layers                                                                                                                                                                                         0.2s 
+ => => writing image sha256:9739703b2866e9100738cefc2f5c7cb0b9cd2b005e5770829a7608ca55bdcfb5                                                                                                                    0.0s 
+ => => naming to docker.io/library/myfirstimage 
+
 ```
 
-* A container (ea4c82dcd15a) is created from the base image
-  * The base image will be pulled, if it was not pulled before
-* The `RUN` command is executed in this container
-* The container is committed into an image (b3c08112fd1c)
-* The build container (ea4c82dcd15a) is removed
-* The output of this step will be the base image for the next one
-* ...
+This output shows the stages involved in building an image from a Dockerfile. Here’s a breakdown of each step:
+
+* `[internal] load build definition from Dockerfile (0.1s)`: Docker reads the `Dockerfile` and loads its contents.
+* `[internal] load metadata for docker.io/library/ubuntu:latest (1.4s)`: Docker fetches metadata for the `ubuntu:latest` image from Docker Hub to check if it’s up-to-date.
+* `[internal] load .dockerignore (0.1s)`: Docker loads `.dockerignore` to exclude specific files from the build context.
+* `[1/2] FROM docker.io/library/ubuntu:latest (3.1s)`: Docker starts downloading the `ubuntu:latest` image with a specific hash `sha256:99c35190...`.
+  * `sha256` entries represent different image layers:
+    * For example, `ff65ddf...` is a 29.75 MB layer, which Docker downloads and extracts.
+
+* `[2/2] RUN apt-get update && apt-get install -y figlet && apt-get clean (8.1s)`: Docker executes the `RUN` command to:
+  * Update the package list (`apt-get update`),
+  * Install the `figlet` package, and
+  * Clean up cached package files (`apt-get clean`) to reduce image size.
+* `exporting to image (0.3s)`: Docker finalizes the build by:
+  * Exporting the layers,
+  * Writing the image with identifier `sha256:9739703...`, and
+  * Naming the image `myfirstimage` in the Docker library.
+
+**Total Build Time:**  
+The entire build process took 13.3 seconds, with most time spent downloading layers and installing packages.
+
 
 ### The caching system
 

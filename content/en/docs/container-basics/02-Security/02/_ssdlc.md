@@ -16,7 +16,7 @@ A Software Bill of Materials (SBOM) is a detailed list of all the components, li
 
 Recent security issues like the Log4j vulnerability and the SolarWinds breach have underscored the need to know exactly what components are being used in software to mitigate risks quickly. By incorporating SBOMs into CI/CD pipelines, developers can automate the tracking of software dependencies, detect vulnerabilities earlier, and ensure compliance with security standards, reducing the chances of introducing insecure components into production.
 
-We have several tools to track the dependencies which our application/images are using an open-source and easy to use one is [trivy](https://trivy.dev/). Let us try it out with our image we built in the previous lab:
+We have several tools to track the dependencies which our application/images are using an open-source and easy to use one is [trivy](https://trivy.dev/). Let us try it out with our multi-stage image we built in the previous lab, in case you did not use the tag `v0.1` you can add it with `docker tag example-spring-boot-helloworld:YOURTAG example-spring-boot-helloworld:v0.1`:
 
 ```bash
 trivy image --format spdx-json --output result.json example-spring-boot-helloworld:v0.1

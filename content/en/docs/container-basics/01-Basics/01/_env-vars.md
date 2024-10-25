@@ -86,7 +86,7 @@ docker exec -it <container> bash
 ```
 
 Where `<container>` can refer to the `CONTAINER ID` (the first two characters are normally sufficient) or one of the `NAMES` from the output of `docker ps`.
-In the above output this would be `7cb31f821233` or `upbeat_blackwell`.
+In the above output this would be `7cb31f821233` or `upbeat_blackwell` but in your case this is a different name and ID.
 
 {{% alert title="Note" color="primary" %}}
 The docker exec command needs either the ID or NAME of the container. Additionally, at the end, an executable.
