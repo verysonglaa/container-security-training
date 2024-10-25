@@ -1,5 +1,5 @@
 ---
-title: "1.2 Environment variables"
+title: "Environment variables"
 weight: 2
 sectionnumber: 1.2
 ---

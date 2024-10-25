@@ -1,5 +1,5 @@
 ---
-title: "2.4 Volume security"
+title: "Volume security"
 weight: 24
 sectionnumber: 2.4
 ---

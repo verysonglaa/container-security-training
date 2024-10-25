@@ -1,5 +1,5 @@
 ---
-title: "1.6 Under the hood"
+title: "Under the hood"
 weight: 6
 sectionnumber: 1.6
 ---

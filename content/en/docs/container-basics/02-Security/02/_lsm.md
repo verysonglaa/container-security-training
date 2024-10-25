@@ -1,5 +1,5 @@
 ---
-title: "2.6 Linux Security Modules"
+title: "Linux Security Modules"
 weight: 26
 sectionnumber: 2.6
 ---

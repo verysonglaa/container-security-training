@@ -1,5 +1,5 @@
 ---
-title: "2.2 Avoid Root"
+title: "Avoid Root"
 weight: 22
 sectionnumber: 2.2
 ---

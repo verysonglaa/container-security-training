@@ -1,5 +1,5 @@
 ---
-title: "1.4 Dockerfile"
+title: "Dockerfile"
 weight: 4
 sectionnumber: 1.4
 ---

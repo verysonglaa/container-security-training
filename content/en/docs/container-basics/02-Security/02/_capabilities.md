@@ -1,5 +1,5 @@
 ---
-title: "2.3 Capabilities"
+title: "Capabilities"
 weight: 23
 sectionnumber: 2.3
 ---

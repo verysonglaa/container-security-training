@@ -1,5 +1,5 @@
 ---
-title: "2.1 SSDLC"
+title: "SSDLC"
 weight: 21
 sectionnumber: 2.1
 ---

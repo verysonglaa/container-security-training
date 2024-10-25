@@ -1,5 +1,5 @@
 ---
-title: "1.5 MultiStage Build"
+title: "MultiStage Build"
 weight: 5
 sectionnumber: 1.5
 ---

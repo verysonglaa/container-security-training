@@ -1,5 +1,5 @@
 ---
-title: "1.3 Frontend"
+title: "Frontend"
 weight: 3
 sectionnumber: 1.3
 ---

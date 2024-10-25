@@ -1,5 +1,5 @@
 ---
-title: "2.7 Privileged Containers"
+title: "Privileged Containers"
 weight: 27
 sectionnumber: 2.7
 ---

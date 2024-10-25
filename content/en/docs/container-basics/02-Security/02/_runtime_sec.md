@@ -1,5 +1,5 @@
 ---
-title: "2.8 Container Runtime Security"
+title: "Container Runtime Security"
 weight: 28
 sectionnumber: 2.8
 ---

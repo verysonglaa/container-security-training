@@ -1,5 +1,5 @@
 ---
-title: "1.1 Images"
+title: "Images"
 weight: 1
 sectionnumber: 1.1
 ---
