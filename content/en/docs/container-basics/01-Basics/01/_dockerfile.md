@@ -6,7 +6,7 @@ sectionnumber: 1.4
 
 ## Dockerfile
 
-Docker can build container images by reading the instructions on how to build the image from a so-called Dockerfile or more generally, Containerfile.
+Docker builds container images by reading instructions from a 'Dockerfile' or, more broadly, a 'Containerfile.'"
 The basic docs on how Dockerfiles work can be found at <https://docs.docker.com/engine/reference/builder/>.
 
 ## Write your first Dockerfile
@@ -17,9 +17,10 @@ For that, create a new directory with an empty Dockerfile in there.
 ```bash
 mkdir myfirstimage
 cd myfirstimage
+touch Dockerfile
 ```
 
-Create a new File with the name `Dockerfile` and add the following content to that `Dockerfile` using your editor of choice:
+Open Dockerfile in your preferred text editor and add the following instructions:
 
 ```Dockerfile
 FROM ubuntu
@@ -35,7 +36,7 @@ RUN apt-get update && \
 
 ## Build the image
 
-Just run:
+Use the following command to build your image:
 
 ```bash
 docker build -t myfirstimage .
@@ -74,10 +75,11 @@ The output of the Docker build looks similiar to this:
  => => naming to docker.io/library/myfirstimage 
 ```
 
-### Sending the build context to Docker
+### First: sending the build context to Docker
 
 ```
-transferring context: 2B
+transferring context:
+2B
 ...
 ```
 
@@ -86,7 +88,7 @@ transferring context: 2B
 * This allows you to use a remote machine to build using local files
 * Be careful (or patient) if that directory is big and your connection is slow
 
-### Inspecting step execution
+### Second: building step execution
 
 ```
 ...
@@ -121,9 +123,7 @@ This output shows the stages involved in building an image from a Dockerfile. He
   * Writing the image with identifier `sha256:9739703...`, and
   * Naming the image `myfirstimage` in the Docker library.
 
-**Total Build Time:**  
 The entire build process took 13.3 seconds, with most time spent downloading layers and installing packages.
-
 
 ### The caching system
 
@@ -177,8 +177,16 @@ exit
 
 With the `CMD` instruction in the Dockerfile, we can define the command that is executed when a container is started.
 
-{{% details title="🤔 Can you find out which CMD instruction the ubuntu image has?" %}}
+{{% details title="🤔 Can you find out which CMD instruction the ubuntu image uses?" %}}
 You did find yourself in a shell, so the instruction must either be `/usr/bin/bash` or `/usr/bin/sh`.
+
+To find out the CMD instruction of the official Ubuntu image, run:
+
+```bash
+docker inspect ubuntu | grep -A2 CMD
+```
+
+You will see the command defined for the ubuntu image. You can also check the Docker Hub page for Ubuntu to see details on what’s included in the image.
 {{% /details %}}
 
 Modify the previously created Dockerfile as follows:
@@ -269,6 +277,6 @@ docker run -d --name frontend -e username=peter -e password=venkman -e servernam
 
 {{% details title="🤔 What did we update by rebuilding the image?" %}}
 We did not only update python to a recent version but also the modules in python!
-Generally you should build & deploy very often to avoid configuration drift and keep your software up to date!
+Generally you should [build & deploy often](https://docs.docker.com/build/building/best-practices/#rebuild-your-images-often) to avoid configuration drift and keep your software up to date!
 A common solution to update your dependencies is [https://docs.renovatebot.com/](https://docs.renovatebot.com/)
 {{% /details %}}

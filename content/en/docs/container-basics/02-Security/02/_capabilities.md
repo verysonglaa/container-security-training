@@ -52,4 +52,4 @@ frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{
 curl http://$frontendIP:5000
 ```
 
-and you should still see the available users in the backend database, we just dropped all CAPs the process in the container doesn't need implementing a least privelege strategy.
+and you should still see the available users in the backend database, we just dropped all CAPs the process in the container doesn't need implementing a `least privileges` strategy.

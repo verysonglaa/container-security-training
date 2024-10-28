@@ -16,3 +16,26 @@ When a Docker container is run with the --privileged flag, several key things ha
 * Unrestricted Network Access
 
 It’s recommended to avoid using --privileged unless absolutely necessary and to use capabilities and specific device access options instead for better security and control.
+
+### Start a privileged container
+
+We refrain from starting a privileged container on our shared infra. So please read the instructions in the `/home/project/welcome` file to access a dedicated VM with ssh:
+
+```bash
+cat /home/project/welcome
+```
+
+Copy and execute the relevant part:
+
+```
+ssh -i id-edcsa userx@192.168.0.1
+```
+
+This vm has docker already installed. Before starting a privileged container first check the mounted file-systems, then just execute this command to run and access a privileged container:
+
+```bash
+df
+docker run -it --rm --privileged ubuntu /bin/bash
+```
+
+Now try to escape this container from the inside (try to read a file like `/etc/passed` on the host). This time we don't provide a solution.

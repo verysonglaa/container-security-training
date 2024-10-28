@@ -1,7 +1,7 @@
 ---
 title: "Container Runtime Security"
-weight: 29
-sectionnumber: 2.9
+weight: 28
+sectionnumber: 2.8
 ---
 
 Do the following commands and read the outputs carefully:
@@ -56,6 +56,8 @@ While Docker relies on a client-server model, Podman employs a daemonless archit
 Compared to Docker is has stronger default security settings, features like rootless containers, user namespaces, and seccomp profiles are enabled by default. On the image below we see a comparisation between Docker and Podman architecture
 
 ![Podman Architecture, src: https://dev.to/arafetki](../podman-architecture.jpeg)
+
+Unfortunately Docker does [not support](https://github.com/docker/containerd-packaging/pull/231) installing podman on the same host without workarounds.
 
 ## Recap
 

@@ -22,7 +22,7 @@ docker inspect --format '{{.State.Pid}}' sleep-container
 Let us see the process running. In the webshell we have the docker backend running in another container, let us first change into that:
 
 ```bash
-kubectl exec -it deployment/<namespace>-webshell -c dind -- sh
+kubectl exec  $(kubectl get pod -l "app.kubernetes.io/name"=webshell -o name) -it -c dind -- sh
 ```
 
 Don't worry the command will make sense after the Kubernetes Security training.
