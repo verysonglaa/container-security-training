@@ -22,24 +22,12 @@ We will explore Docker breakout techniques to demonstrate potential privilege es
 
 Launch a Container with Host Device Access, use the `df` command to get the Host's file-systems. Here is an example:
 
-```
+```bash
 df
 docker run -it --rm --device /dev/sda1 ubuntu /bin/bash
 ```
 
 Now check if you can view or access the host’s devices (such as `/dev/sda1`).
-
-### Escape with SYS_ADMIN Capability
-
-Run a Container** with `--cap-add=SYS_ADMIN` and investigate ways to use this capability to access the host:
-
-```bash
-docker run -it --rm --cap-add=SYS_ADMIN ubuntu /bin/bash
-```
-
-### Use Custom Container Images
-
-Imagine a case where you cannot download tool. So build a custom container image that might circumvent security restrictions (e.g., by adding tools or modifying filesystem paths) and attempt to break out.
 
 ### Escape via Docker Socket
 
@@ -54,4 +42,14 @@ sleep 900 &
 docker run -it --rm --pid=host ubuntu /bin/bash
 ```
 
-This runs a Container** with `--pid=host`. Explore how this enables access to host processes. Attempt to kill the sleep process.
+This runs a Container with `--pid=host`. Explore how this enables access to host processes. Attempt to kill the sleep process.
+
+## (Optional) Podman
+
+You can install Podman alongside docker to test it out:
+
+```bash
+sudo apt -y install podman
+```
+
+Try different user command with podman. Try to start a pod. Try with `buildah` to build an image.

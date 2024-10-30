@@ -15,7 +15,7 @@ Seccomp provides a way to filter system calls that a process can make. By defini
 
 **AppArmor (Application Armor)**:
 
-AppArmor uses profiles to confine applications and restrict their access to system resources. Each profile defines the permissions for a specific application, including which files it can access, which network operations it can perform, and more. AppArmor is generally easier to manage and configure compared to SELinux. There is a default enabled AppArmor profile for Docker named usually named `docker-default`. You can find the template for this profile [here](https://github.com/moby/moby/blob/master/profiles/apparmor/template.go).
+AppArmor uses profiles to confine applications and restrict their access to system resources. Each profile defines the permissions for a specific application, including which files it can access, which network operations it can perform, and more. AppArmor is generally easier to manage and configure compared to SELinux. There is a default enabled AppArmor profile for Docker usually named `docker-default`. You can find the template for this profile [here](https://github.com/moby/moby/blob/master/profiles/apparmor/template.go).
 
 **SELinux (Security-Enhanced Linux)**:
 
