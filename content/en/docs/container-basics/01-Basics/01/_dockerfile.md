@@ -52,7 +52,7 @@ Also see: <https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3bab
 
 ### What happens when we build the image
 
-The output of the Docker build looks similiar to this:
+The output of the Docker build looks similar to this:
 
 ```
 [+] Building 13.3s (6/6) FINISHED                                                                                                                                                                     docker:default
@@ -243,13 +243,13 @@ You should have the necessary knowledge now to update and rebuild the image loca
 
 {{% details title="😳 I'm lost, show me the solution" %}}
 
-First of all we need to check for the latest python base image. You could do this in dockerhub:
+First of all, we need to check for the latest python base image. You could do this in dockerhub:
 
 ```bash
 grep FROM Dockerfile
 ```
 
-We see that currently we use version 3.9 of python, a look at [https://hub.docker.com/_/python](https://hub.docker.com/_/python) shows us that that the most recent version, at the time of writing is 3.12.
+We see that currently, we use version 3.9 of python, a look at [https://hub.docker.com/_/python](https://hub.docker.com/_/python) shows us that that the most recent version, at the time of writing is 3.12.
 
 Replace the from line with this new value
 
@@ -264,7 +264,7 @@ docker build -t container-lab-frontend:v1.0 .
 docker images
 ```
 
-Finally we kill the currently running container and start our new one, hopefully we still have $ip saved in our shell:
+Finally, we kill the currently running container and start our new one, hopefully we still have $ip saved in our shell:
 
 ```bash
 docker stop frontend
@@ -277,6 +277,6 @@ docker run -d --name frontend -e username=peter -e password=venkman -e servernam
 
 {{% details title="🤔 What did we update by rebuilding the image?" %}}
 We did not only update python to a recent version but also the modules in python!
-Generally you should [build & deploy often](https://docs.docker.com/build/building/best-practices/#rebuild-your-images-often) to avoid configuration drift and keep your software up to date!
+Generally, you should [build & deploy often](https://docs.docker.com/build/building/best-practices/#rebuild-your-images-often) to avoid configuration drift and keep your software up to date!
 A common solution to update your dependencies is [https://docs.renovatebot.com/](https://docs.renovatebot.com/)
 {{% /details %}}

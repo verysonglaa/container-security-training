@@ -16,8 +16,12 @@ This page contains instructions on how to pull the image. Let's pull a certain v
 docker pull mariadb:11.5
 ```
 
-{{% alert title="Note" color="primary" %}}
-Care about security! Check the images before you run them.
+{{% alert title="Security Best Practices" color="primary" %}}
+When using images from Docker Hub or other sources, always follow these practices:
+
+* **Verify the Image Source**: Use official images or trusted sources.
+* **Vulnerability Scanning**: Scan images with `docker scan` or a similar tool.
+* **Check SHA256 Digest**: Verify your image’s digest to confirm it hasn’t been altered.
 {{% /alert %}}
 
 * Is it an [official image](https://docs.docker.com/docker-hub/official_images/)?
@@ -26,7 +30,7 @@ Official Images are a good starting point, please read [here](https://docs.docke
 * What is installed in the image?
   * Read the Dockerfile that was used to build the image
   * Check the base image
-  * Check the vulnerabilitis of this image. Does it affect your application?
+  * Check the vulnerabilities of this image. Does it affect your application?
   * Check the dependencies of the image.
   * Compare your images Digest to the sha256 value shown on dockerhub.
 
@@ -37,7 +41,7 @@ docker run hello-world:linux
 ```
 
 {{% alert title="Note" color="primary" %}}
-Here we use the `linux` tag of the hello-world image instead of using `latest` again.
+Here we use the `linux` tag of the hello-world image instead of using `latest` again. Avoid using the `latest` tag in production settings, as it can lead to unexpected behavior if the image updates. Always specify a version.
 {{% /alert %}}
 
 To see the images that have been downloaded to your computer type:
@@ -54,9 +58,9 @@ mariadb             11.5                58730544b81b        2 weeks ago         
 hello-world         latest              1815c82652c0        2 months ago        1.84kB
 ```
 
-The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, only more resource-friendly.
+The hello world container you ran in the previous lab is an example of a container that runs and exits, after emitting a test message. Containers, however, can be much more useful than that, and they can be interactive. After all, they are similar to virtual machines, but they are more resource-friendly.
 
-As an example, let's run a container using the downloaded image of MariaDB. The combination of the -i and -t switches gives you interactive shell access to the container:
+For example, let's run a container using the downloaded image of MariaDB. The combination of the -i and -t switches gives you interactive shell access to the container:
 
 ```bash
 docker run -it mariadb:11.5
@@ -85,14 +89,14 @@ We will add the configuration later.
 
 {{% details title="🤔 What's an image?" %}}
 
-Think of an image like a blueprint of what will be in a container when it runs.
+Think of an image as a blueprint of what will be in a container when it runs.
 
 * An image is a collection of files + some metadata (or in technical terms: those files form the root filesystem of a container)
 * Images are made of layers, conceptually stacked on top of each other
 * Each layer can add, change or remove files
-* Images can share layers to optimize disk usage, transfer times and memory use
+* Images can share layers to optimize disk usage, transfer times, and memory use
 * You build these images using Dockerfiles (in later labs)
-* Images are immutable, you cannot change them after creation
+* Images are immutable, you cannot change them after the creation
 {{% /details %}}
 
 {{% details title="🤔 What's the difference between a container and an image?" %}}

