@@ -70,7 +70,7 @@ Now try to pull an untrusted image
 docker pull grafgabriel/alpine
 ```
 
-It will fail with a similiar error (also please never use this image, it is really old)
+It will fail with a similar error (also please never use this image, it is really old)
 
 ```
 Error: remote trust data does not exist for docker.io/grafgabriel/alpine: notary.docker.io does not have trust data for docker.io/grafgabriel/alpine
@@ -78,7 +78,7 @@ Error: remote trust data does not exist for docker.io/grafgabriel/alpine: notary
 
 If you have Content Trust enabled you can only download trusted images. If you try to push images with content trust enabled Docker will ask you to create a key to sign your images and it will then sign your image before uploading it.
 
-Docker Content Trust is powered by [Notary](https://github.com/docker/notary), an open-source TUF-client and server that can operate over arbitrary trusted collections of data. Notary has its own CLI with robust features such as the ability to rotate keys and remove trust data.
+Docker Content Trust is powered by [Notary](https://github.com/docker/notary), an open-source [TUF](https://theupdateframework.io/docs/overview/)-client and server that can operate over arbitrary trusted collections of data. Notary has its own CLI with robust features such as the ability to rotate keys and remove trust data.
 
 Disable Content Trust again as we will need to download unsigned images in our lab:
 

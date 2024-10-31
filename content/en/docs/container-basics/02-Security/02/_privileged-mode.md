@@ -15,7 +15,7 @@ When a Docker container is run with the --privileged flag, several key things ha
 * AppArmor and Seccomp Disabled
 * Unrestricted Network Access
 
-It’s recommended to avoid using --privileged unless absolutely necessary and to use capabilities and specific device access options instead for better security and control.
+It’s recommended to avoid using --privileged unless necessary and to use capabilities and specific device access options instead for better security and control.
 
 ### Start a privileged container
 
@@ -31,7 +31,7 @@ Copy and execute the relevant part:
 ssh -i id-edcsa userx@192.168.0.1
 ```
 
-This vm has docker already installed. Before starting a privileged container first check the mounted file-systems, then just execute this command to run and access a privileged container:
+This VM has docker already installed. Before starting a privileged container first check the mounted file systems, then just execute this command to run and access a privileged container:
 
 ```bash
 df

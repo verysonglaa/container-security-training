@@ -27,13 +27,13 @@ Try it using:
 docker run --rm --read-only --tmpfs /tmp alpine sh -c 'echo "whatever" > /tmp/blub'
 ```
 
-In addition, if the volume is mounted only for reading, mount them as a read-only. It can be done by appending :ro to the -v. Here is an example:
+In addition, if the volume is mounted only for reading, mount them as read-only. It can be done by appending :ro to the -v. Here is an example:
 
 ```
 docker run -v volume-name:/path/in/container:ro alpine
 ```
 
-We continue on improving security for our `frontend` application by adding this options to our docker run command.
+We continue improving security for our `frontend` application by adding these options to our docker run command.
 
 ```bash
 docker stop frontend

@@ -7,11 +7,11 @@ sectionnumber: 2.7
 
 ## Introduction to Linux Security Modules
 
-Linux Security Modules (LSMs) provide mechanisms for implementing various security policies in Linux. They help in enforcing access controls and securing applications by restricting their capabilities and interactions with the system. The most populare LSMs are:
+Linux Security Modules (LSMs) provide mechanisms for implementing various security policies in Linux. They help in enforcing access controls and secure applications by restricting their capabilities and interactions with the system. The most popular LSMs are:
 
 **Seccomp (Secure Computing Mode)**:
 
-Seccomp provides a way to filter system calls that a process can make. By defining a list of allowed or disallowed system calls, it can minimize the attack surface of applications by reducing the risk of exploitation through system call vulnerabilities. This allows you to create even more granular control over the system calls than you would have using capabilities.
+Seccomp provides a way to filter system calls that a process can make. Defining a list of allowed or disallowed system calls can minimize the attack surface of applications by reducing the risk of exploitation through system call vulnerabilities. This allows you to create even more granular control over the system calls than you would have using capabilities.
 
 **AppArmor (Application Armor)**:
 
@@ -49,7 +49,7 @@ First, create a Seccomp profile in JSON format. For example, create a file named
 }
 ```
 
-This profile allows only a subset of system calls necessary for frontend to operate, blocking others. Adding another layer of defense in addition to our dropped capabilites.
+This profile allows only a subset of system calls necessary for the frontend to operate, blocking others. Adding another layer of defense in addition to our dropped capabilities.
 
 To apply this profile to our frontend container, you can use the Docker command line with the `--security-opt` option:
 
@@ -69,11 +69,11 @@ You can check if the Seccomp profile is applied by inspecting the container:
 docker inspect frontend | grep seccomp
 ```
 
-And again as a final check we test if our service is still available:
+And again as a final check, we test if our service is still available:
 
 ```bash
 frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
 curl http://$frontendIP:5000
 ```
 
-AppArmor, Seccomp or SELinux can also play an important roles in mitigating unpatched vulnerabilities like [Leaky Vessels](https://www.redhat.com/en/blog/latest-container-exploit-runc-can-be-blocked-selinux)
+AppArmor, Seccompm or SELinux can also play important roles in mitigating unpatched vulnerabilities like [Leaky Vessels](https://www.redhat.com/en/blog/latest-container-exploit-runc-can-be-blocked-selinux)

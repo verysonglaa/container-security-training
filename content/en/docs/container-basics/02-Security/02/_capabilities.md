@@ -24,9 +24,9 @@ Check the default capabilites of a container:
 docker run --rm -it alpine sh -c 'apk add -U libcap; capsh --print'
 ```
 
-Important for us are the sections `Current` and `Bounding Set`, these are the Capabilites a process in our container has or can aquire. You can deny processes from gaining more privileges by adding `--security-opt=no-new-privileges` to the docker run command.
+Important for us are the sections `Current` and `Bounding Set`, these are the capabilites a process in our container has or can acquire. You can deny processes from gaining more privileges by adding `--security-opt=no-new-privileges` to the docker run command.
 
-Furthermore we have `Current Inheritable and Blocked (IAB) Capabilities`
+Furthermore, we have `Current Inheritable and Blocked (IAB) Capabilities`
 , this shows the capabilities that the process does NOT have. Each capability here is prefixed with !, indicating that the capability is disabled or not granted.
 
 ## Configuring a Container to Use Only What It Needs
@@ -45,11 +45,11 @@ export ip=$(docker inspect mariadb-container-with-external-volume  -f '{{ range.
 docker run --name frontend -d -e username=peter -e password=venkman -e servername=$ip --cap-drop ALL --security-opt=no-new-privileges container-lab-frontend:v2.0
 ```
 
-Let's see if it is still running
+Let's see if it is still running:
 
 ```bash
 frontendIP=$(docker inspect frontend  -f '{{ range.NetworkSettings.Networks }}{{ .IPAddress }}{{ end }}')
 curl http://$frontendIP:5000
 ```
 
-and you should still see the available users in the backend database, we just dropped all CAPs the process in the container doesn't need implementing a `least privileges` strategy.
+You should still see the available users in the backend database, we just dropped all CAPs the process in the container doesn't need to implement a `least privileges` strategy.
