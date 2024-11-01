@@ -183,7 +183,7 @@ You did find yourself in a shell, so the instruction must either be `/usr/bin/ba
 To find out the CMD instruction of the official Ubuntu image, run:
 
 ```bash
-docker inspect ubuntu | grep -A2 CMD
+docker inspect myfirstimage:latest | grep -A2 Cmd
 ```
 
 You will see the command defined for the ubuntu image. You can also check the Docker Hub page for Ubuntu to see details on what’s included in the image.

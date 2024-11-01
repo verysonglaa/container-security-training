@@ -41,4 +41,4 @@ Since we don’t have a browser in the web shell, use `curl http://172.17.0.4:50
 curl http://172.17.0.4:5000
 ```
 
-```
+We successfully implemented a frontend for our backend.

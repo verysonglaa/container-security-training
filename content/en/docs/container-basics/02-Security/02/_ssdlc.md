@@ -22,7 +22,7 @@ We have several tools to track the dependencies that our application/images are 
 trivy image --format spdx-json --output result.json example-spring-boot-helloworld:v0.1
 ```
 
-Sometimes the trivy API gets overwhelmed with requests and reports an Error, just try again after a minute if that happens. A workaround is to use an image from another registry:
+Sometimes the trivy API gets overwhelmed with requests and reports an Error, just try again after a minute if that happens. A workaround is to use an image with a db from another registry:
 
 ```bash
 trivy image --db-repository public.ecr.aws/aquasecurity/trivy-db:2 --format spdx-json --output result.json example-spring-boot-helloworld:v0.1
