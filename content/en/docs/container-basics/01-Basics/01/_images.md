@@ -16,13 +16,7 @@ This page contains instructions on how to pull the image. Let's pull a certain v
 docker pull mariadb:11.5
 ```
 
-{{% alert title="Security Best Practices" color="primary" %}}
 When using images from Docker Hub or other sources, always follow these practices:
-
-* **Verify the Image Source**: Use official images or trusted sources.
-* **Vulnerability Scanning**: Scan images with `docker scan` or a similar tool.
-* **Check SHA256 Digest**: Verify your image’s digest to confirm it hasn’t been altered.
-{{% /alert %}}
 
 * Is it an [official image](https://docs.docker.com/docker-hub/official_images/)?
 Official Images are a good starting point, please read [here](https://docs.docker.com/docker-hub/official_images/) why.
