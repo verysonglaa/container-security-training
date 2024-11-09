@@ -42,3 +42,8 @@ We simply mount the working directory into a running container, where hugo is st
 export HUGO_VERSION=$(grep -oP "(?<=hugo-version: ')[^']*(?=')" .github/workflows/hugo.yaml)
 docker run --rm --publish 8080:8080 --volume $(pwd):/src floryn90/hugo:$HUGO_VERSION-ext-ubuntu server --port 8080
 ```
+
+## TODO
+
+* switch to cloudflare pages?
+* 1-3 advanced labs
